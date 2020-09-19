@@ -5,6 +5,7 @@
 
 #include "fastled_config.h"
 
+/*
 #if defined(NRF51) || defined(__RFduino__) || defined (__Simblee__)
 #include "platforms/arm/nrf51/led_sysdefs_arm_nrf51.h"
 #elif defined(NRF52_SERIES)
@@ -31,13 +32,17 @@
 #elif defined(ESP8266)
 #include "platforms/esp/8266/led_sysdefs_esp8266.h"
 #elif defined(ESP32)
+*/
+#if defined(ESP32)
 #include "platforms/esp/32/led_sysdefs_esp32.h"
+/*
 #elif defined(__AVR__)
 // AVR platforms
 #include "platforms/avr/led_sysdefs_avr.h"
 #elif defined(ARDUINO_ARCH_APOLLO3)
 // Apollo3 platforms (e.g. the Ambiq Micro Apollo3 Blue as used by the SparkFun Artemis platforms)
 #include "platforms/apollo3/led_sysdefs_apollo3.h"
+*/
 #else
 //
 // We got here because we don't recognize the platform that you're
