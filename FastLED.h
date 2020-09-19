@@ -25,6 +25,7 @@
 #include <SmartMatrix.h>
 #endif
 
+/*
 #ifdef DmxSimple_h
 #include <DmxSimple.h>
 #endif
@@ -32,6 +33,7 @@
 #ifdef DmxSerial_h
 #include <DMXSerial.h>
 #endif
+*/
 
 #include <stdint.h>
 
@@ -47,7 +49,7 @@
 #include "controller.h"
 #include "fastpin.h"
 #include "fastspi_types.h"
-#include "dmx.h"
+//#include "dmx.h"
 
 #include "platforms.h"
 #include "fastled_progmem.h"
