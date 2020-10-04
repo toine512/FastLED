@@ -15,8 +15,8 @@ FASTLED_NAMESPACE_BEGIN
 //
 //                   NOTE: here hue is 0-255, not just 0-191
 
-void hsv2rgb_rainbow( const struct CHSV& hsv, struct CRGB& rgb);
-void hsv2rgb_rainbow( const struct CHSV* phsv, struct CRGB * prgb, int numLeds);
+void hsv2rgb_rainbow( const struct CHSV& hsv, struct CRGBW& rgb);
+void hsv2rgb_rainbow( const struct CHSV* phsv, struct CRGBW * prgb, int numLeds);
 #define HUE_MAX_RAINBOW 255
 
 
@@ -28,8 +28,8 @@ void hsv2rgb_rainbow( const struct CHSV* phsv, struct CRGB * prgb, int numLeds);
 //
 //                    NOTE: here hue is 0-255, not just 0-191
 
-void hsv2rgb_spectrum( const struct CHSV& hsv, struct CRGB& rgb);
-void hsv2rgb_spectrum( const struct CHSV* phsv, struct CRGB * prgb, int numLeds);
+void hsv2rgb_spectrum( const struct CHSV& hsv, struct CRGBW& rgb);
+void hsv2rgb_spectrum( const struct CHSV* phsv, struct CRGBW * prgb, int numLeds);
 #define HUE_MAX_SPECTRUM 255
 
 
@@ -44,8 +44,8 @@ void hsv2rgb_spectrum( const struct CHSV* phsv, struct CRGB * prgb, int numLeds)
 //               Saturation & value are 0-255 each.
 //
 
-void hsv2rgb_raw(const struct CHSV& hsv, struct CRGB & rgb);
-void hsv2rgb_raw(const struct CHSV* phsv, struct CRGB * prgb, int numLeds);
+void hsv2rgb_raw(const struct CHSV& hsv, struct CRGBW & rgb);
+void hsv2rgb_raw(const struct CHSV* phsv, struct CRGBW * prgb, int numLeds);
 #define HUE_MAX 191
 
 
@@ -57,7 +57,7 @@ void hsv2rgb_raw(const struct CHSV* phsv, struct CRGB * prgb, int numLeds);
 //
 //   NOTE 2: This function is most accurate when the input is an
 //   RGB color that came from a fully-saturated HSV color to start
-//   with.  E.g. CHSV( hue, 255, 255) -> CRGB -> CHSV will give
+//   with.  E.g. CHSV( hue, 255, 255) -> CRGBW -> CHSV will give
 //   best results.
 //
 //   NOTE 3: This function is not nearly as fast as HSV-to-RGB.
@@ -84,7 +84,7 @@ void hsv2rgb_raw(const struct CHSV* phsv, struct CRGB * prgb, int numLeds);
 //   The more desaturated the original RGB color is, the rougher the
 //   approximation, and the less accurate the results.
 //
-CHSV rgb2hsv_approximate( const CRGB& rgb);
+CHSV rgb2hsv_approximate( const CRGBW& rgb);
 
 FASTLED_NAMESPACE_END
 

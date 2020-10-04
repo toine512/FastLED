@@ -19,94 +19,94 @@ FASTLED_USING_NAMESPACE
 
 extern const TProgmemRGBPalette16 CloudColors_p FL_PROGMEM =
 {
-    CRGB::Blue,
-    CRGB::DarkBlue,
-    CRGB::DarkBlue,
-    CRGB::DarkBlue,
+    CRGBW::Blue,
+    CRGBW::DarkBlue,
+    CRGBW::DarkBlue,
+    CRGBW::DarkBlue,
 
-    CRGB::DarkBlue,
-    CRGB::DarkBlue,
-    CRGB::DarkBlue,
-    CRGB::DarkBlue,
+    CRGBW::DarkBlue,
+    CRGBW::DarkBlue,
+    CRGBW::DarkBlue,
+    CRGBW::DarkBlue,
 
-    CRGB::Blue,
-    CRGB::DarkBlue,
-    CRGB::SkyBlue,
-    CRGB::SkyBlue,
+    CRGBW::Blue,
+    CRGBW::DarkBlue,
+    CRGBW::SkyBlue,
+    CRGBW::SkyBlue,
 
-    CRGB::LightBlue,
-    CRGB::White,
-    CRGB::LightBlue,
-    CRGB::SkyBlue
+    CRGBW::LightBlue,
+    CRGBW::White,
+    CRGBW::LightBlue,
+    CRGBW::SkyBlue
 };
 
 extern const TProgmemRGBPalette16 LavaColors_p FL_PROGMEM =
 {
-    CRGB::Black,
-    CRGB::Maroon,
-    CRGB::Black,
-    CRGB::Maroon,
+    CRGBW::Black,
+    CRGBW::Maroon,
+    CRGBW::Black,
+    CRGBW::Maroon,
 
-    CRGB::DarkRed,
-    CRGB::Maroon,
-    CRGB::DarkRed,
+    CRGBW::DarkRed,
+    CRGBW::Maroon,
+    CRGBW::DarkRed,
 
-    CRGB::DarkRed,
-    CRGB::DarkRed,
-    CRGB::Red,
-    CRGB::Orange,
+    CRGBW::DarkRed,
+    CRGBW::DarkRed,
+    CRGBW::Red,
+    CRGBW::Orange,
 
-    CRGB::White,
-    CRGB::Orange,
-    CRGB::Red,
-    CRGB::DarkRed
+    CRGBW::White,
+    CRGBW::Orange,
+    CRGBW::Red,
+    CRGBW::DarkRed
 };
 
 
 extern const TProgmemRGBPalette16 OceanColors_p FL_PROGMEM =
 {
-    CRGB::MidnightBlue,
-    CRGB::DarkBlue,
-    CRGB::MidnightBlue,
-    CRGB::Navy,
+    CRGBW::MidnightBlue,
+    CRGBW::DarkBlue,
+    CRGBW::MidnightBlue,
+    CRGBW::Navy,
 
-    CRGB::DarkBlue,
-    CRGB::MediumBlue,
-    CRGB::SeaGreen,
-    CRGB::Teal,
+    CRGBW::DarkBlue,
+    CRGBW::MediumBlue,
+    CRGBW::SeaGreen,
+    CRGBW::Teal,
 
-    CRGB::CadetBlue,
-    CRGB::Blue,
-    CRGB::DarkCyan,
-    CRGB::CornflowerBlue,
+    CRGBW::CadetBlue,
+    CRGBW::Blue,
+    CRGBW::DarkCyan,
+    CRGBW::CornflowerBlue,
 
-    CRGB::Aquamarine,
-    CRGB::SeaGreen,
-    CRGB::Aqua,
-    CRGB::LightSkyBlue
+    CRGBW::Aquamarine,
+    CRGBW::SeaGreen,
+    CRGBW::Aqua,
+    CRGBW::LightSkyBlue
 };
 
 extern const TProgmemRGBPalette16 ForestColors_p FL_PROGMEM =
 {
-    CRGB::DarkGreen,
-    CRGB::DarkGreen,
-    CRGB::DarkOliveGreen,
-    CRGB::DarkGreen,
+    CRGBW::DarkGreen,
+    CRGBW::DarkGreen,
+    CRGBW::DarkOliveGreen,
+    CRGBW::DarkGreen,
 
-    CRGB::Green,
-    CRGB::ForestGreen,
-    CRGB::OliveDrab,
-    CRGB::Green,
+    CRGBW::Green,
+    CRGBW::ForestGreen,
+    CRGBW::OliveDrab,
+    CRGBW::Green,
 
-    CRGB::SeaGreen,
-    CRGB::MediumAquamarine,
-    CRGB::LimeGreen,
-    CRGB::YellowGreen,
+    CRGBW::SeaGreen,
+    CRGBW::MediumAquamarine,
+    CRGBW::LimeGreen,
+    CRGBW::YellowGreen,
 
-    CRGB::LightGreen,
-    CRGB::LawnGreen,
-    CRGB::MediumAquamarine,
-    CRGB::ForestGreen
+    CRGBW::LightGreen,
+    CRGBW::LawnGreen,
+    CRGBW::MediumAquamarine,
+    CRGBW::ForestGreen
 };
 
 /// HSV Rainbow

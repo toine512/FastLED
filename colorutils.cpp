@@ -10,8 +10,8 @@ FASTLED_NAMESPACE_BEGIN
 
 
 
-void fill_solid( struct CRGB * leds, int numToFill,
-                 const struct CRGB& color)
+void fill_solid( struct CRGBW * leds, int numToFill,
+                 const struct CRGBW& color)
 {
     for( int i = 0; i < numToFill; i++) {
         leds[i] = color;
@@ -27,13 +27,13 @@ void fill_solid( struct CHSV * targetArray, int numToFill,
 }
 
 
-// void fill_solid( struct CRGB* targetArray, int numToFill,
+// void fill_solid( struct CRGBW* targetArray, int numToFill,
 // 				 const struct CHSV& hsvColor)
 // {
-// 	fill_solid<CRGB>( targetArray, numToFill, (CRGB) hsvColor);
+// 	fill_solid<CRGBW>( targetArray, numToFill, (CRGBW) hsvColor);
 // }
 
-void fill_rainbow( struct CRGB * pFirstLED, int numToFill,
+void fill_rainbow( struct CRGBW * pFirstLED, int numToFill,
                   uint8_t initialhue,
                   uint8_t deltahue )
 {
@@ -62,14 +62,14 @@ void fill_rainbow( struct CHSV * targetArray, int numToFill,
 }
 
 
-void fill_gradient_RGB( CRGB* leds,
-                   uint16_t startpos, CRGB startcolor,
-                   uint16_t endpos,   CRGB endcolor )
+void fill_gradient_RGB( CRGBW* leds,
+                   uint16_t startpos, CRGBW startcolor,
+                   uint16_t endpos,   CRGBW endcolor )
 {
     // if the points are in the wrong order, straighten them
     if( endpos < startpos ) {
         uint16_t t = endpos;
-        CRGB tc = endcolor;
+        CRGBW tc = endcolor;
         endcolor = startcolor;
         endpos = startpos;
         startpos = t;
@@ -99,7 +99,7 @@ void fill_gradient_RGB( CRGB* leds,
     accum88 g88 = startcolor.g << 8;
     accum88 b88 = startcolor.b << 8;
     for( uint16_t i = startpos; i <= endpos; i++) {
-        leds[i] = CRGB( r88 >> 8, g88 >> 8, b88 >> 8);
+        leds[i] = CRGBW( r88 >> 8, g88 >> 8, b88 >> 8, 0);
         r88 += rdelta87;
         g88 += gdelta87;
         b88 += bdelta87;
@@ -122,17 +122,17 @@ void fill_gradient( const CHSV& c1, const CHSV& c2, const CHSV& c3, const CHSV& 
     fill_gradient( FastLED[0].leds(), FastLED[0].size(), c1, c2, c3, c4);
 }
 
-void fill_gradient_RGB( const CRGB& c1, const CRGB& c2)
+void fill_gradient_RGB( const CRGBW& c1, const CRGBW& c2)
 {
     fill_gradient_RGB( FastLED[0].leds(), FastLED[0].size(), c1, c2);
 }
 
-void fill_gradient_RGB( const CRGB& c1, const CRGB& c2, const CRGB& c3)
+void fill_gradient_RGB( const CRGBW& c1, const CRGBW& c2, const CRGBW& c3)
 {
     fill_gradient_RGB( FastLED[0].leds(), FastLED[0].size(), c1, c2, c3);
 }
 
-void fill_gradient_RGB( const CRGB& c1, const CRGB& c2, const CRGB& c3, const CRGB& c4)
+void fill_gradient_RGB( const CRGBW& c1, const CRGBW& c2, const CRGBW& c3, const CRGBW& c4)
 {
     fill_gradient_RGB( FastLED[0].leds(), FastLED[0].size(), c1, c2, c3, c4);
 }
@@ -141,14 +141,14 @@ void fill_gradient_RGB( const CRGB& c1, const CRGB& c2, const CRGB& c3, const CR
 
 
 
-void fill_gradient_RGB( CRGB* leds, uint16_t numLeds, const CRGB& c1, const CRGB& c2)
+void fill_gradient_RGB( CRGBW* leds, uint16_t numLeds, const CRGBW& c1, const CRGBW& c2)
 {
     uint16_t last = numLeds - 1;
     fill_gradient_RGB( leds, 0, c1, last, c2);
 }
 
 
-void fill_gradient_RGB( CRGB* leds, uint16_t numLeds, const CRGB& c1, const CRGB& c2, const CRGB& c3)
+void fill_gradient_RGB( CRGBW* leds, uint16_t numLeds, const CRGBW& c1, const CRGBW& c2, const CRGBW& c3)
 {
     uint16_t half = (numLeds / 2);
     uint16_t last = numLeds - 1;
@@ -156,7 +156,7 @@ void fill_gradient_RGB( CRGB* leds, uint16_t numLeds, const CRGB& c1, const CRGB
     fill_gradient_RGB( leds, half, c2, last, c3);
 }
 
-void fill_gradient_RGB( CRGB* leds, uint16_t numLeds, const CRGB& c1, const CRGB& c2, const CRGB& c3, const CRGB& c4)
+void fill_gradient_RGB( CRGBW* leds, uint16_t numLeds, const CRGBW& c1, const CRGBW& c2, const CRGBW& c3, const CRGBW& c4)
 {
     uint16_t onethird = (numLeds / 3);
     uint16_t twothirds = ((numLeds * 2) / 3);
@@ -169,62 +169,64 @@ void fill_gradient_RGB( CRGB* leds, uint16_t numLeds, const CRGB& c1, const CRGB
 
 
 
-void nscale8_video( CRGB* leds, uint16_t num_leds, uint8_t scale)
+void nscale8_video( CRGBW* leds, uint16_t num_leds, uint8_t scale)
 {
     for( uint16_t i = 0; i < num_leds; i++) {
         leds[i].nscale8_video( scale);
     }
 }
 
-void fade_video(CRGB* leds, uint16_t num_leds, uint8_t fadeBy)
+void fade_video(CRGBW* leds, uint16_t num_leds, uint8_t fadeBy)
 {
     nscale8_video( leds, num_leds, 255 - fadeBy);
 }
 
-void fadeLightBy(CRGB* leds, uint16_t num_leds, uint8_t fadeBy)
+void fadeLightBy(CRGBW* leds, uint16_t num_leds, uint8_t fadeBy)
 {
     nscale8_video( leds, num_leds, 255 - fadeBy);
 }
 
 
-void fadeToBlackBy( CRGB* leds, uint16_t num_leds, uint8_t fadeBy)
+void fadeToBlackBy( CRGBW* leds, uint16_t num_leds, uint8_t fadeBy)
 {
     nscale8( leds, num_leds, 255 - fadeBy);
 }
 
-void fade_raw( CRGB* leds, uint16_t num_leds, uint8_t fadeBy)
+void fade_raw( CRGBW* leds, uint16_t num_leds, uint8_t fadeBy)
 {
     nscale8( leds, num_leds, 255 - fadeBy);
 }
 
-void nscale8_raw( CRGB* leds, uint16_t num_leds, uint8_t scale)
+void nscale8_raw( CRGBW* leds, uint16_t num_leds, uint8_t scale)
 {
     nscale8( leds, num_leds, scale);
 }
 
-void nscale8( CRGB* leds, uint16_t num_leds, uint8_t scale)
+void nscale8( CRGBW* leds, uint16_t num_leds, uint8_t scale)
 {
     for( uint16_t i = 0; i < num_leds; i++) {
         leds[i].nscale8( scale);
     }
 }
 
-void fadeUsingColor( CRGB* leds, uint16_t numLeds, const CRGB& colormask)
+void fadeUsingColor( CRGBW* leds, uint16_t numLeds, const CRGBW& colormask)
 {
-    uint8_t fr, fg, fb;
+    uint8_t fr, fg, fb, fw;
     fr = colormask.r;
     fg = colormask.g;
     fb = colormask.b;
+    fw = colormask.w;
 
     for( uint16_t i = 0; i < numLeds; i++) {
         leds[i].r = scale8_LEAVING_R1_DIRTY( leds[i].r, fr);
         leds[i].g = scale8_LEAVING_R1_DIRTY( leds[i].g, fg);
         leds[i].b = scale8                 ( leds[i].b, fb);
+        leds[i].w = scale8                 ( leds[i].w, fw);
     }
 }
 
 
-CRGB& nblend( CRGB& existing, const CRGB& overlay, fract8 amountOfOverlay )
+CRGBW& nblend( CRGBW& existing, const CRGBW& overlay, fract8 amountOfOverlay )
 {
     if( amountOfOverlay == 0) {
         return existing;
@@ -252,6 +254,7 @@ CRGB& nblend( CRGB& existing, const CRGB& overlay, fract8 amountOfOverlay )
     existing.red   = blend8( existing.red,   overlay.red,   amountOfOverlay);
     existing.green = blend8( existing.green, overlay.green, amountOfOverlay);
     existing.blue  = blend8( existing.blue,  overlay.blue,  amountOfOverlay);
+    existing.white  = blend8( existing.white,  overlay.white,  amountOfOverlay);
 #endif
     
     return existing;
@@ -259,7 +262,7 @@ CRGB& nblend( CRGB& existing, const CRGB& overlay, fract8 amountOfOverlay )
 
 
 
-void nblend( CRGB* existing, CRGB* overlay, uint16_t count, fract8 amountOfOverlay)
+void nblend( CRGBW* existing, CRGBW* overlay, uint16_t count, fract8 amountOfOverlay)
 {
     for( uint16_t i = count; i; i--) {
         nblend( *existing, *overlay, amountOfOverlay);
@@ -268,14 +271,14 @@ void nblend( CRGB* existing, CRGB* overlay, uint16_t count, fract8 amountOfOverl
     }
 }
 
-CRGB blend( const CRGB& p1, const CRGB& p2, fract8 amountOfP2 )
+CRGBW blend( const CRGBW& p1, const CRGBW& p2, fract8 amountOfP2 )
 {
-    CRGB nu(p1);
+    CRGBW nu(p1);
     nblend( nu, p2, amountOfP2);
     return nu;
 }
 
-CRGB* blend( const CRGB* src1, const CRGB* src2, CRGB* dest, uint16_t count, fract8 amountOfsrc2 )
+CRGBW* blend( const CRGBW* src1, const CRGBW* src2, CRGBW* dest, uint16_t count, fract8 amountOfsrc2 )
 {
     for( uint16_t i = 0; i < count; i++) {
         dest[i] = blend(src1[i], src2[i], amountOfsrc2);
@@ -380,14 +383,14 @@ uint16_t XY( uint8_t, uint8_t);// __attribute__ ((weak));
 //         calls to 'blur' will also result in the light fading,
 //         eventually all the way to black; this is by design so that
 //         it can be used to (slowly) clear the LEDs to black.
-void blur1d( CRGB* leds, uint16_t numLeds, fract8 blur_amount)
+void blur1d( CRGBW* leds, uint16_t numLeds, fract8 blur_amount)
 {
     uint8_t keep = 255 - blur_amount;
     uint8_t seep = blur_amount >> 1;
-    CRGB carryover = CRGB::Black;
+    CRGBW carryover = CRGBW::Black;
     for( uint16_t i = 0; i < numLeds; i++) {
-        CRGB cur = leds[i];
-        CRGB part = cur;
+        CRGBW cur = leds[i];
+        CRGBW part = cur;
         part.nscale8( seep);
         cur.nscale8( keep);
         cur += carryover;
@@ -397,32 +400,32 @@ void blur1d( CRGB* leds, uint16_t numLeds, fract8 blur_amount)
     }
 }
 
-void blur2d( CRGB* leds, uint8_t width, uint8_t height, fract8 blur_amount)
+void blur2d( CRGBW* leds, uint8_t width, uint8_t height, fract8 blur_amount)
 {
     blurRows(leds, width, height, blur_amount);
     blurColumns(leds, width, height, blur_amount);
 }
 
 // blurRows: perform a blur1d on every row of a rectangular matrix
-void blurRows( CRGB* leds, uint8_t width, uint8_t height, fract8 blur_amount)
+void blurRows( CRGBW* leds, uint8_t width, uint8_t height, fract8 blur_amount)
 {
     for( uint8_t row = 0; row < height; row++) {
-        CRGB* rowbase = leds + (row * width);
+        CRGBW* rowbase = leds + (row * width);
         blur1d( rowbase, width, blur_amount);
     }
 }
 
 // blurColumns: perform a blur1d on each column of a rectangular matrix
-void blurColumns(CRGB* leds, uint8_t width, uint8_t height, fract8 blur_amount)
+void blurColumns(CRGBW* leds, uint8_t width, uint8_t height, fract8 blur_amount)
 {
     // blur columns
     uint8_t keep = 255 - blur_amount;
     uint8_t seep = blur_amount >> 1;
     for( uint8_t col = 0; col < width; col++) {
-        CRGB carryover = CRGB::Black;
+        CRGBW carryover = CRGBW::Black;
         for( uint8_t i = 0; i < height; i++) {
-            CRGB cur = leds[XY(col,i)];
-            CRGB part = cur;
+            CRGBW cur = leds[XY(col,i)];
+            CRGBW part = cur;
             part.nscale8( seep);
             cur.nscale8( keep);
             cur += carryover;
@@ -435,7 +438,7 @@ void blurColumns(CRGB* leds, uint8_t width, uint8_t height, fract8 blur_amount)
 
 
 
-// CRGB HeatColor( uint8_t temperature)
+// CRGBW HeatColor( uint8_t temperature)
 //
 // Approximates a 'black body radiation' spectrum for
 // a given 'heat' level.  This is useful for animations of 'fire'.
@@ -446,9 +449,9 @@ void blurColumns(CRGB* leds, uint8_t width, uint8_t height, fract8 blur_amount)
 // On AVR/Arduino, this typically takes around 70 bytes of program memory,
 // versus 768 bytes for a full 256-entry RGB lookup table.
 
-CRGB HeatColor( uint8_t temperature)
+CRGBW HeatColor( uint8_t temperature)
 {
-    CRGB heatcolor;
+    CRGBW heatcolor;
 
     // Scale 'heat' down from 0-255 to 0-191,
     // which can then be easily divided into three
@@ -503,25 +506,26 @@ inline uint8_t lsrX4( uint8_t dividend)
 }
 
 
-CRGB ColorFromPalette( const CRGBPalette16& pal, uint8_t index, uint8_t brightness, TBlendType blendType)
+CRGBW ColorFromPalette( const CRGBWPalette16& pal, uint8_t index, uint8_t brightness, TBlendType blendType)
 {
     //      hi4 = index >> 4;
     uint8_t hi4 = lsrX4(index);
     uint8_t lo4 = index & 0x0F;
     
-    // const CRGB* entry = &(pal[0]) + hi4;
-    // since hi4 is always 0..15, hi4 * sizeof(CRGB) can be a single-byte value,
+    // const CRGBW* entry = &(pal[0]) + hi4;
+    // since hi4 is always 0..15, hi4 * sizeof(CRGBW) can be a single-byte value,
     // instead of the two byte 'int' that avr-gcc defaults to.
-    // So, we multiply hi4 X sizeof(CRGB), giving hi4XsizeofCRGB;
-    uint8_t hi4XsizeofCRGB = hi4 * sizeof(CRGB);
+    // So, we multiply hi4 X sizeof(CRGBW), giving hi4XsizeofCRGBW;
+    uint8_t hi4XsizeofCRGBW = hi4 * sizeof(CRGBW);
     // We then add that to a base array pointer.
-    const CRGB* entry = (CRGB*)( (uint8_t*)(&(pal[0])) + hi4XsizeofCRGB);
+    const CRGBW* entry = (CRGBW*)( (uint8_t*)(&(pal[0])) + hi4XsizeofCRGBW);
     
     uint8_t blend = lo4 && (blendType != NOBLEND);
     
     uint8_t red1   = entry->red;
     uint8_t green1 = entry->green;
     uint8_t blue1  = entry->blue;
+    uint8_t white1  = entry->white;
     
     
     if( blend ) {
@@ -550,6 +554,11 @@ CRGB ColorFromPalette( const CRGBPalette16& pal, uint8_t index, uint8_t brightne
         blue1  = scale8_LEAVING_R1_DIRTY( blue1,  f1);
         blue2  = scale8_LEAVING_R1_DIRTY( blue2,  f2);
         blue1  += blue2;
+
+        uint8_t white2  = entry->white;
+        white1  = scale8_LEAVING_R1_DIRTY( white1,  f1);
+        white2  = scale8_LEAVING_R1_DIRTY( white2,  f2);
+        white1  += white2;
         
         cleanup_R1();
     }
@@ -577,29 +586,37 @@ CRGB ColorFromPalette( const CRGBPalette16& pal, uint8_t index, uint8_t brightne
                 blue1++;
 #endif
             }
+            if( white1 )  {
+                white1 = scale8_LEAVING_R1_DIRTY( white1, brightness);
+#if !(FASTLED_SCALE8_FIXED==1)
+                white1++;
+#endif
+            }
             cleanup_R1();
         } else {
             red1 = 0;
             green1 = 0;
             blue1 = 0;
+            white1 = 0;
         }
     }
     
-    return CRGB( red1, green1, blue1);
+    return CRGBW( red1, green1, blue1, white1);
 }
 
-CRGB ColorFromPalette( const TProgmemRGBPalette16& pal, uint8_t index, uint8_t brightness, TBlendType blendType)
+CRGBW ColorFromPalette( const TProgmemRGBPalette16& pal, uint8_t index, uint8_t brightness, TBlendType blendType)
 {
     //      hi4 = index >> 4;
     uint8_t hi4 = lsrX4(index);
     uint8_t lo4 = index & 0x0F;
 
-    CRGB entry   =  FL_PGM_READ_DWORD_NEAR( &(pal[0]) + hi4 );
+    CRGBW entry   =  FL_PGM_READ_DWORD_NEAR( &(pal[0]) + hi4 );
     
 
     uint8_t red1   = entry.red;
     uint8_t green1 = entry.green;
     uint8_t blue1  = entry.blue;
+    uint8_t white1  = entry.white;
 
     uint8_t blend = lo4 && (blendType != NOBLEND);
 
@@ -629,6 +646,11 @@ CRGB ColorFromPalette( const TProgmemRGBPalette16& pal, uint8_t index, uint8_t b
         blue2  = scale8_LEAVING_R1_DIRTY( blue2,  f2);
         blue1  += blue2;
 
+        uint8_t white2  = entry.white;
+        white1  = scale8_LEAVING_R1_DIRTY( white1,  f1);
+        white2  = scale8_LEAVING_R1_DIRTY( white2,  f2);
+        white1  += white2;
+
         cleanup_R1();
     }
 
@@ -655,19 +677,26 @@ CRGB ColorFromPalette( const TProgmemRGBPalette16& pal, uint8_t index, uint8_t b
                 blue1++;
 #endif
             }
+            if( white1 )  {
+                white1 = scale8_LEAVING_R1_DIRTY( white1, brightness);
+#if !(FASTLED_SCALE8_FIXED==1)
+                white1++;
+#endif
+            }
             cleanup_R1();
         } else {
             red1 = 0;
             green1 = 0;
             blue1 = 0;
+            white1 = 0;
         }
     }
 
-    return CRGB( red1, green1, blue1);
+    return CRGBW( red1, green1, blue1, white1);
 }
 
 
-CRGB ColorFromPalette( const CRGBPalette32& pal, uint8_t index, uint8_t brightness, TBlendType blendType)
+CRGBW ColorFromPalette( const CRGBWPalette32& pal, uint8_t index, uint8_t brightness, TBlendType blendType)
 {
     uint8_t hi5 = index;
 #if defined(__AVR__)
@@ -679,17 +708,18 @@ CRGB ColorFromPalette( const CRGBPalette32& pal, uint8_t index, uint8_t brightne
 #endif
     uint8_t lo3 = index & 0x07;
     
-    // const CRGB* entry = &(pal[0]) + hi5;
-    // since hi5 is always 0..31, hi4 * sizeof(CRGB) can be a single-byte value,
+    // const CRGBW* entry = &(pal[0]) + hi5;
+    // since hi5 is always 0..31, hi4 * sizeof(CRGBW) can be a single-byte value,
     // instead of the two byte 'int' that avr-gcc defaults to.
-    // So, we multiply hi5 X sizeof(CRGB), giving hi5XsizeofCRGB;
-    uint8_t hi5XsizeofCRGB = hi5 * sizeof(CRGB);
+    // So, we multiply hi5 X sizeof(CRGBW), giving hi5XsizeofCRGBW;
+    uint8_t hi5XsizeofCRGBW = hi5 * sizeof(CRGBW);
     // We then add that to a base array pointer.
-    const CRGB* entry = (CRGB*)( (uint8_t*)(&(pal[0])) + hi5XsizeofCRGB);
+    const CRGBW* entry = (CRGBW*)( (uint8_t*)(&(pal[0])) + hi5XsizeofCRGBW);
     
     uint8_t red1   = entry->red;
     uint8_t green1 = entry->green;
     uint8_t blue1  = entry->blue;
+    uint8_t white1  = entry->white;
     
     uint8_t blend = lo3 && (blendType != NOBLEND);
     
@@ -719,6 +749,10 @@ CRGB ColorFromPalette( const CRGBPalette32& pal, uint8_t index, uint8_t brightne
         blue2  = scale8_LEAVING_R1_DIRTY( blue2,  f2);
         blue1  += blue2;
 
+        uint8_t white2  = entry->white;
+        white1  = scale8_LEAVING_R1_DIRTY( white1,  f1);
+        white2  = scale8_LEAVING_R1_DIRTY( white2,  f2);
+        white1  += white2;
         cleanup_R1();
         
     }
@@ -746,19 +780,26 @@ CRGB ColorFromPalette( const CRGBPalette32& pal, uint8_t index, uint8_t brightne
                 blue1++;
 #endif
             }
+            if( white1 )  {
+                white1 = scale8_LEAVING_R1_DIRTY( white1, brightness);
+#if !(FASTLED_SCALE8_FIXED==1)
+                white1++;
+#endif
+            }
             cleanup_R1();
         } else {
             red1 = 0;
             green1 = 0;
             blue1 = 0;
+            white1 = 0;
         }
     }
     
-    return CRGB( red1, green1, blue1);
+    return CRGBW( red1, green1, blue1, white1);
 }
 
 
-CRGB ColorFromPalette( const TProgmemRGBPalette32& pal, uint8_t index, uint8_t brightness, TBlendType blendType)
+CRGBW ColorFromPalette( const TProgmemRGBPalette32& pal, uint8_t index, uint8_t brightness, TBlendType blendType)
 {
     uint8_t hi5 = index;
 #if defined(__AVR__)
@@ -770,11 +811,12 @@ CRGB ColorFromPalette( const TProgmemRGBPalette32& pal, uint8_t index, uint8_t b
 #endif
     uint8_t lo3 = index & 0x07;
     
-    CRGB entry = FL_PGM_READ_DWORD_NEAR( &(pal[0]) + hi5);
+    CRGBW entry = FL_PGM_READ_DWORD_NEAR( &(pal[0]) + hi5);
     
     uint8_t red1   = entry.red;
     uint8_t green1 = entry.green;
     uint8_t blue1  = entry.blue;
+    uint8_t white1  = entry.white;
     
     uint8_t blend = lo3 && (blendType != NOBLEND);
     
@@ -803,6 +845,11 @@ CRGB ColorFromPalette( const TProgmemRGBPalette32& pal, uint8_t index, uint8_t b
         blue1  = scale8_LEAVING_R1_DIRTY( blue1,  f1);
         blue2  = scale8_LEAVING_R1_DIRTY( blue2,  f2);
         blue1  += blue2;
+
+        uint8_t white2  = entry.white;
+        white1  = scale8_LEAVING_R1_DIRTY( white1,  f1);
+        white2  = scale8_LEAVING_R1_DIRTY( white2,  f2);
+        white1  += white2;
         
         cleanup_R1();
     }
@@ -830,36 +877,45 @@ CRGB ColorFromPalette( const TProgmemRGBPalette32& pal, uint8_t index, uint8_t b
                 blue1++;
 #endif
             }
+            if( white1 )  {
+                white1 = scale8_LEAVING_R1_DIRTY( white1, brightness);
+#if !(FASTLED_SCALE8_FIXED==1)
+                white1++;
+#endif
+            }
             cleanup_R1();
         } else {
             red1 = 0;
             green1 = 0;
             blue1 = 0;
+            white1 = 0;
         }
     }
     
-    return CRGB( red1, green1, blue1);
+    return CRGBW( red1, green1, blue1, white1);
 }
 
 
 
-CRGB ColorFromPalette( const CRGBPalette256& pal, uint8_t index, uint8_t brightness, TBlendType)
+CRGBW ColorFromPalette( const CRGBWPalette256& pal, uint8_t index, uint8_t brightness, TBlendType)
 {
-    const CRGB* entry = &(pal[0]) + index;
+    const CRGBW* entry = &(pal[0]) + index;
 
     uint8_t red   = entry->red;
     uint8_t green = entry->green;
     uint8_t blue  = entry->blue;
+    uint8_t white  = entry->white;
 
     if( brightness != 255) {
         brightness++; // adjust for rounding
-        red   = scale8_video_LEAVING_R1_DIRTY( red,   brightness);
-        green = scale8_video_LEAVING_R1_DIRTY( green, brightness);
-        blue  = scale8_video_LEAVING_R1_DIRTY( blue,  brightness);
+        red         = scale8_video_LEAVING_R1_DIRTY( red,   brightness);
+        green       = scale8_video_LEAVING_R1_DIRTY( green, brightness);
+        blue        = scale8_video_LEAVING_R1_DIRTY( blue,  brightness);
+        white       = scale8_video_LEAVING_R1_DIRTY( white,  brightness);
         cleanup_R1();
     }
 
-    return CRGB( red, green, blue);
+    return CRGBW( red, green, blue, white);
 }
 
 
@@ -869,7 +925,7 @@ CHSV ColorFromPalette( const struct CHSVPalette16& pal, uint8_t index, uint8_t b
     uint8_t hi4 = lsrX4(index);
     uint8_t lo4 = index & 0x0F;
 
-    //  CRGB rgb1 = pal[ hi4];
+    //  CRGBW rgb1 = pal[ hi4];
     const CHSV* entry = &(pal[0]) + hi4;
 
     uint8_t hue1   = entry->hue;
@@ -1048,7 +1104,7 @@ CHSV ColorFromPalette( const struct CHSVPalette256& pal, uint8_t index, uint8_t 
 }
 
 
-void UpscalePalette(const struct CRGBPalette16& srcpal16, struct CRGBPalette256& destpal256)
+void UpscalePalette(const struct CRGBWPalette16& srcpal16, struct CRGBWPalette256& destpal256)
 {
     for( int i = 0; i < 256; i++) {
         destpal256[(uint8_t)(i)] = ColorFromPalette( srcpal16, i);
@@ -1063,7 +1119,7 @@ void UpscalePalette(const struct CHSVPalette16& srcpal16, struct CHSVPalette256&
 }
 
 
-void UpscalePalette(const struct CRGBPalette16& srcpal16, struct CRGBPalette32& destpal32)
+void UpscalePalette(const struct CRGBWPalette16& srcpal16, struct CRGBWPalette32& destpal32)
 {
     for( uint8_t i = 0; i < 16; i++) {
         uint8_t j = i * 2;
@@ -1081,7 +1137,7 @@ void UpscalePalette(const struct CHSVPalette16& srcpal16, struct CHSVPalette32& 
     }
 }
 
-void UpscalePalette(const struct CRGBPalette32& srcpal32, struct CRGBPalette256& destpal256)
+void UpscalePalette(const struct CRGBWPalette32& srcpal32, struct CRGBWPalette256& destpal256)
 {
     for( int i = 0; i < 256; i++) {
         destpal256[(uint8_t)(i)] = ColorFromPalette( srcpal32, i);
@@ -1099,7 +1155,7 @@ void UpscalePalette(const struct CHSVPalette32& srcpal32, struct CHSVPalette256&
 
 #if 0
 // replaced by PartyColors_p
-void SetupPartyColors(CRGBPalette16& pal)
+void SetupPartyColors(CRGBWPalette16& pal)
 {
     fill_gradient( pal, 0, CHSV( HUE_PURPLE,255,255), 7, CHSV(HUE_YELLOW - 18,255,255), FORWARD_HUES);
     fill_gradient( pal, 8, CHSV( HUE_ORANGE,255,255), 15, CHSV(HUE_BLUE + 18,255,255), BACKWARD_HUES);
@@ -1107,7 +1163,7 @@ void SetupPartyColors(CRGBPalette16& pal)
 #endif
 
 
-void nblendPaletteTowardPalette( CRGBPalette16& current, CRGBPalette16& target, uint8_t maxChanges)
+void nblendPaletteTowardPalette( CRGBWPalette16& current, CRGBWPalette16& target, uint8_t maxChanges)
 {
     uint8_t* p1;
     uint8_t* p2;
@@ -1116,7 +1172,7 @@ void nblendPaletteTowardPalette( CRGBPalette16& current, CRGBPalette16& target, 
     p1 = (uint8_t*)current.entries;
     p2 = (uint8_t*)target.entries;
 
-    const uint8_t totalChannels = sizeof(CRGBPalette16);
+    const uint8_t totalChannels = sizeof(CRGBWPalette16);
     for( uint8_t i = 0; i < totalChannels; i++) {
         // if the values are equal, no changes are needed
         if( p1[i] == p2[i] ) { continue; }
@@ -1150,44 +1206,44 @@ uint8_t applyGamma_video( uint8_t brightness, float gamma)
     return result;
 }
 
-CRGB applyGamma_video( const CRGB& orig, float gamma)
+CRGBW applyGamma_video( const CRGBW& orig, float gamma)
 {
-    CRGB adj;
+    CRGBW adj;
     adj.r = applyGamma_video( orig.r, gamma);
     adj.g = applyGamma_video( orig.g, gamma);
     adj.b = applyGamma_video( orig.b, gamma);
     return adj;
 }
 
-CRGB applyGamma_video( const CRGB& orig, float gammaR, float gammaG, float gammaB)
+CRGBW applyGamma_video( const CRGBW& orig, float gammaR, float gammaG, float gammaB)
 {
-    CRGB adj;
+    CRGBW adj;
     adj.r = applyGamma_video( orig.r, gammaR);
     adj.g = applyGamma_video( orig.g, gammaG);
     adj.b = applyGamma_video( orig.b, gammaB);
     return adj;
 }
 
-CRGB& napplyGamma_video( CRGB& rgb, float gamma)
+CRGBW& napplyGamma_video( CRGBW& rgb, float gamma)
 {
     rgb = applyGamma_video( rgb, gamma);
     return rgb;
 }
 
-CRGB& napplyGamma_video( CRGB& rgb, float gammaR, float gammaG, float gammaB)
+CRGBW& napplyGamma_video( CRGBW& rgb, float gammaR, float gammaG, float gammaB)
 {
     rgb = applyGamma_video( rgb, gammaR, gammaG, gammaB);
     return rgb;
 }
 
-void napplyGamma_video( CRGB* rgbarray, uint16_t count, float gamma)
+void napplyGamma_video( CRGBW* rgbarray, uint16_t count, float gamma)
 {
     for( uint16_t i = 0; i < count; i++) {
         rgbarray[i] = applyGamma_video( rgbarray[i], gamma);
     }
 }
 
-void napplyGamma_video( CRGB* rgbarray, uint16_t count, float gammaR, float gammaG, float gammaB)
+void napplyGamma_video( CRGBW* rgbarray, uint16_t count, float gammaR, float gammaG, float gammaB)
 {
     for( uint16_t i = 0; i < count; i++) {
         rgbarray[i] = applyGamma_video( rgbarray[i], gammaR, gammaG, gammaB);

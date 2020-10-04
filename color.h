@@ -27,7 +27,7 @@ typedef enum {
     ///@}
 
     /// uncorrected color
-    UncorrectedColor=0xFFFFFF
+    UncorrectedColor=0xFFFFFFFF
 
 } LEDColorCorrection;
 
@@ -75,7 +75,7 @@ typedef enum {
     ///@}
 
     /// Uncorrected temperature 0xFFFFFF
-    UncorrectedTemperature=0xFFFFFF
+    UncorrectedTemperature=0xFFFFFFFF
 } ColorTemperature;
 
 FASTLED_NAMESPACE_END

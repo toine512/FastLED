@@ -463,60 +463,63 @@ class GE8822Controller800Khz : public ClocklessController<DATA_PIN, 3 * FMUL, 5 
 
 // LPD1886
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class LPD1886Controller1250Khz : public ClocklessController<DATA_PIN, 2 * FMUL, 3 * FMUL, 2 * FMUL, RGB_ORDER, 4> {};
+class LPD1886Controller1250Khz : public ClocklessController<DATA_PIN, 3, 2 * FMUL, 3 * FMUL, 2 * FMUL, RGB_ORDER, 4> {};
 
 // LPD1886
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class LPD1886Controller1250Khz_8bit : public ClocklessController<DATA_PIN, 2 * FMUL, 3 * FMUL, 2 * FMUL, RGB_ORDER> {};
+class LPD1886Controller1250Khz_8bit : public ClocklessController<DATA_PIN, 3, 2 * FMUL, 3 * FMUL, 2 * FMUL, RGB_ORDER> {};
 
 // WS2811@800khz 2 clocks, 5 clocks, 3 clocks
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class WS2812Controller800Khz : public ClocklessController<DATA_PIN, 2 * FMUL, 5 * FMUL, 3 * FMUL, RGB_ORDER> {};
+class WS2812Controller800Khz : public ClocklessController<DATA_PIN, 3, 2 * FMUL, 5 * FMUL, 3 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class WS2811Controller800Khz : public ClocklessController<DATA_PIN, 3 * FMUL, 4 * FMUL, 3 * FMUL, RGB_ORDER> {};
+class WS2811Controller800Khz : public ClocklessController<DATA_PIN, 3, 3 * FMUL, 4 * FMUL, 3 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>                                                             //not tested
-class WS2813Controller : public ClocklessController<DATA_PIN, 3 * FMUL, 4 * FMUL, 3 * FMUL, RGB_ORDER> {};
+class WS2813Controller : public ClocklessController<DATA_PIN, 3, 3 * FMUL, 4 * FMUL, 3 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class WS2811Controller400Khz : public ClocklessController<DATA_PIN, 4 * FMUL, 10 * FMUL, 6 * FMUL, RGB_ORDER> {};
+class WS2811Controller400Khz : public ClocklessController<DATA_PIN, 3, 4 * FMUL, 10 * FMUL, 6 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class SK6822Controller : public ClocklessController<DATA_PIN, 3 * FMUL, 8 * FMUL, 3 * FMUL, RGB_ORDER> {};
+class SK6822Controller : public ClocklessController<DATA_PIN, 3, 3 * FMUL, 8 * FMUL, 3 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class SM16703Controller : public ClocklessController<DATA_PIN, 3 * FMUL, 4 * FMUL, 3 * FMUL, RGB_ORDER> {};
+class SM16703Controller : public ClocklessController<DATA_PIN, 3, 3 * FMUL, 4 * FMUL, 3 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class SK6812Controller : public ClocklessController<DATA_PIN, 3 * FMUL, 3 * FMUL, 4 * FMUL, RGB_ORDER> {};
+class SK6812Controller : public ClocklessController<DATA_PIN, 3, 3 * FMUL, 3 * FMUL, 4 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class UCS1903Controller400Khz : public ClocklessController<DATA_PIN, 4 * FMUL, 12 * FMUL, 4 * FMUL, RGB_ORDER> {};
+class SK6812WController: public ClocklessController<DATA_PIN, 4, 3 * FMUL, 3 * FMUL, 4 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class UCS1903BController800Khz : public ClocklessController<DATA_PIN, 2 * FMUL, 4 * FMUL, 4 * FMUL, RGB_ORDER> {};
+class UCS1903Controller400Khz : public ClocklessController<DATA_PIN, 3, 4 * FMUL, 12 * FMUL, 4 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class UCS1904Controller800Khz : public ClocklessController<DATA_PIN, 3 * FMUL, 3 * FMUL, 4 * FMUL, RGB_ORDER> {};
+class UCS1903BController800Khz : public ClocklessController<DATA_PIN, 3, 2 * FMUL, 4 * FMUL, 4 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class UCS2903Controller : public ClocklessController<DATA_PIN, 2 * FMUL, 6 * FMUL, 2 * FMUL, RGB_ORDER> {};
+class UCS1904Controller800Khz : public ClocklessController<DATA_PIN, 3, 3 * FMUL, 3 * FMUL, 4 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class TM1809Controller800Khz : public ClocklessController<DATA_PIN, 2 * FMUL, 5 * FMUL, 3 * FMUL, RGB_ORDER> {};
+class UCS2903Controller : public ClocklessController<DATA_PIN, 3, 2 * FMUL, 6 * FMUL, 2 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class TM1803Controller400Khz : public ClocklessController<DATA_PIN, 6 * FMUL, 9 * FMUL, 6 * FMUL, RGB_ORDER> {};
+class TM1809Controller800Khz : public ClocklessController<DATA_PIN, 3, 2 * FMUL, 5 * FMUL, 3 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class TM1829Controller800Khz : public ClocklessController<DATA_PIN, 2 * FMUL, 5 * FMUL, 3 * FMUL, RGB_ORDER, 0, true, 500> {};
+class TM1803Controller400Khz : public ClocklessController<DATA_PIN, 3, 6 * FMUL, 9 * FMUL, 6 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class GW6205Controller400Khz : public ClocklessController<DATA_PIN, 6 * FMUL, 7 * FMUL, 6 * FMUL, RGB_ORDER, 4> {};
+class TM1829Controller800Khz : public ClocklessController<DATA_PIN, 3, 2 * FMUL, 5 * FMUL, 3 * FMUL, RGB_ORDER, 0, true, 500> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class GW6205Controller800Khz : public ClocklessController<DATA_PIN, 2 * FMUL, 4 * FMUL, 4 * FMUL, RGB_ORDER, 4> {};
+class GW6205Controller400Khz : public ClocklessController<DATA_PIN, 3, 6 * FMUL, 7 * FMUL, 6 * FMUL, RGB_ORDER, 4> {};
+
+template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
+class GW6205Controller800Khz : public ClocklessController<DATA_PIN, 3, 2 * FMUL, 4 * FMUL, 4 * FMUL, RGB_ORDER, 4> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
 class PL9823Controller : public ClocklessController<DATA_PIN, 3 * FMUL, 8 * FMUL, 3 * FMUL, RGB_ORDER> {};
@@ -535,80 +538,83 @@ class PL9823Controller : public ClocklessController<DATA_PIN, 3 * FMUL, 8 * FMUL
 
 // GE8822 - 350ns 660ns 350ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class GE8822Controller800Khz : public ClocklessController<DATA_PIN, C_NS(350), C_NS(660), C_NS(350), RGB_ORDER, 4> {};
+class GE8822Controller800Khz : public ClocklessController<DATA_PIN, 3, C_NS(350), C_NS(660), C_NS(350), RGB_ORDER, 4> {};
 
 // GW6205@400khz - 800ns, 800ns, 800ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class GW6205Controller400Khz : public ClocklessController<DATA_PIN, C_NS(800), C_NS(800), C_NS(800), RGB_ORDER, 4> {};
+class GW6205Controller400Khz : public ClocklessController<DATA_PIN, 3, C_NS(800), C_NS(800), C_NS(800), RGB_ORDER, 4> {};
 
 // GW6205@400khz - 400ns, 400ns, 400ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class GW6205Controller800Khz : public ClocklessController<DATA_PIN, C_NS(400), C_NS(400), C_NS(400), RGB_ORDER, 4> {};
+class GW6205Controller800Khz : public ClocklessController<DATA_PIN, 3, C_NS(400), C_NS(400), C_NS(400), RGB_ORDER, 4> {};
 
 // UCS1903 - 500ns, 1500ns, 500ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class UCS1903Controller400Khz : public ClocklessController<DATA_PIN, C_NS(500), C_NS(1500), C_NS(500), RGB_ORDER> {};
+class UCS1903Controller400Khz : public ClocklessController<DATA_PIN, 3, C_NS(500), C_NS(1500), C_NS(500), RGB_ORDER> {};
 
 // UCS1903B - 400ns, 450ns, 450ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class UCS1903BController800Khz : public ClocklessController<DATA_PIN, C_NS(400), C_NS(450), C_NS(450), RGB_ORDER> {};
+class UCS1903BController800Khz : public ClocklessController<DATA_PIN, 3, C_NS(400), C_NS(450), C_NS(450), RGB_ORDER> {};
 
 // UCS1904 - 400ns, 400ns, 450ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class UCS1904Controller800Khz : public ClocklessController<DATA_PIN, C_NS(400), C_NS(400), C_NS(450), RGB_ORDER> {};
+class UCS1904Controller800Khz : public ClocklessController<DATA_PIN, 3, C_NS(400), C_NS(400), C_NS(450), RGB_ORDER> {};
 
 // UCS2903 - 250ns, 750ns, 250ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class UCS2903Controller : public ClocklessController<DATA_PIN, C_NS(250), C_NS(750), C_NS(250), RGB_ORDER> {};
+class UCS2903Controller : public ClocklessController<DATA_PIN, 3, C_NS(250), C_NS(750), C_NS(250), RGB_ORDER> {};
 
 // TM1809 - 350ns, 350ns, 550ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class TM1809Controller800Khz : public ClocklessController<DATA_PIN, C_NS(350), C_NS(350), C_NS(450), RGB_ORDER> {};
+class TM1809Controller800Khz : public ClocklessController<DATA_PIN, 3, C_NS(350), C_NS(350), C_NS(450), RGB_ORDER> {};
 
 // WS2811 - 320ns, 320ns, 640ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class WS2811Controller800Khz : public ClocklessController<DATA_PIN, C_NS(320), C_NS(320), C_NS(640), RGB_ORDER> {};
+class WS2811Controller800Khz : public ClocklessController<DATA_PIN, 3, C_NS(320), C_NS(320), C_NS(640), RGB_ORDER> {};
 
 // WS2813 - 320ns, 320ns, 640ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class WS2813Controller : public ClocklessController<DATA_PIN, C_NS(320), C_NS(320), C_NS(640), RGB_ORDER> {};
+class WS2813Controller : public ClocklessController<DATA_PIN, 3, C_NS(320), C_NS(320), C_NS(640), RGB_ORDER> {};
 
 // WS2812 - 250ns, 625ns, 375ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class WS2812Controller800Khz : public ClocklessController<DATA_PIN, C_NS(250), C_NS(625), C_NS(375), RGB_ORDER> {};
+class WS2812Controller800Khz : public ClocklessController<DATA_PIN, 3, C_NS(250), C_NS(625), C_NS(375), RGB_ORDER> {};
 
 // WS2811@400khz - 800ns, 800ns, 900ns
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class WS2811Controller400Khz : public ClocklessController<DATA_PIN, C_NS(800), C_NS(800), C_NS(900), RGB_ORDER> {};
+class WS2811Controller400Khz : public ClocklessController<DATA_PIN, 3, C_NS(800), C_NS(800), C_NS(900), RGB_ORDER> {};
 
 // 750NS, 750NS, 750NS
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class TM1803Controller400Khz : public ClocklessController<DATA_PIN, C_NS(700), C_NS(1100), C_NS(700), RGB_ORDER> {};
+class TM1803Controller400Khz : public ClocklessController<DATA_PIN, 3, C_NS(700), C_NS(1100), C_NS(700), RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class TM1829Controller800Khz : public ClocklessController<DATA_PIN, C_NS(340), C_NS(340), C_NS(550), RGB_ORDER, 0, true, 500> {};
+class TM1829Controller800Khz : public ClocklessController<DATA_PIN, 3, C_NS(340), C_NS(340), C_NS(550), RGB_ORDER, 0, true, 500> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class TM1829Controller1600Khz : public ClocklessController<DATA_PIN, C_NS(100), C_NS(300), C_NS(200), RGB_ORDER, 0, true, 500> {};
+class TM1829Controller1600Khz : public ClocklessController<DATA_PIN, 3, C_NS(100), C_NS(300), C_NS(200), RGB_ORDER, 0, true, 500> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class LPD1886Controller1250Khz : public ClocklessController<DATA_PIN, C_NS(200), C_NS(400), C_NS(200), RGB_ORDER, 4> {};
+class LPD1886Controller1250Khz : public ClocklessController<DATA_PIN, 3, C_NS(200), C_NS(400), C_NS(200), RGB_ORDER, 4> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class LPD1886Controller1250Khz_8bit : public ClocklessController<DATA_PIN, C_NS(200), C_NS(400), C_NS(200), RGB_ORDER> {};
+class LPD1886Controller1250Khz_8bit : public ClocklessController<DATA_PIN, 3, C_NS(200), C_NS(400), C_NS(200), RGB_ORDER> {};
 
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class SK6822Controller : public ClocklessController<DATA_PIN, C_NS(375), C_NS(1000), C_NS(375), RGB_ORDER> {};
+class SK6822Controller : public ClocklessController<DATA_PIN, 3, C_NS(375), C_NS(1000), C_NS(375), RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class SK6812Controller : public ClocklessController<DATA_PIN, C_NS(300), C_NS(300), C_NS(600), RGB_ORDER> {};
+class SK6812Controller : public ClocklessController<DATA_PIN, 3, C_NS(300), C_NS(300), C_NS(600), RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class SM16703Controller : public ClocklessController<DATA_PIN, C_NS(300), C_NS(600), C_NS(300), RGB_ORDER> {};
+class SK6812WController : public ClocklessController<DATA_PIN, 4, C_NS(300), C_NS(300), C_NS(600), RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class PL9823Controller : public ClocklessController<DATA_PIN, C_NS(350), C_NS(1010), C_NS(350), RGB_ORDER> {};
+class SM16703Controller : public ClocklessController<DATA_PIN, 3, C_NS(300), C_NS(600), C_NS(300), RGB_ORDER> {};
+
+template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
+class PL9823Controller : public ClocklessController<DATA_PIN, 3, C_NS(350), C_NS(1010), C_NS(350), RGB_ORDER> {};
 #endif
 ///@}
 

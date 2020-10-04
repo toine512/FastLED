@@ -47,16 +47,16 @@ FASTLED_NAMESPACE_BEGIN
 
 
 
-void hsv2rgb_raw_C (const struct CHSV & hsv, struct CRGB & rgb);
-void hsv2rgb_raw_avr(const struct CHSV & hsv, struct CRGB & rgb);
+void hsv2rgb_raw_C (const struct CHSV & hsv, struct CRGBW & rgb);
+void hsv2rgb_raw_avr(const struct CHSV & hsv, struct CRGBW & rgb);
 
 #if defined(__AVR__) && !defined( LIB8_ATTINY )
-void hsv2rgb_raw(const struct CHSV & hsv, struct CRGB & rgb)
+void hsv2rgb_raw(const struct CHSV & hsv, struct CRGBW & rgb)
 {
     hsv2rgb_raw_avr( hsv, rgb);
 }
 #else
-void hsv2rgb_raw(const struct CHSV & hsv, struct CRGB & rgb)
+void hsv2rgb_raw(const struct CHSV & hsv, struct CRGBW & rgb)
 {
     hsv2rgb_raw_C( hsv, rgb);
 }
@@ -68,7 +68,7 @@ void hsv2rgb_raw(const struct CHSV & hsv, struct CRGB & rgb)
 #define HSV_SECTION_6 (0x20)
 #define HSV_SECTION_3 (0x40)
 
-void hsv2rgb_raw_C (const struct CHSV & hsv, struct CRGB & rgb)
+void hsv2rgb_raw_C (const struct CHSV & hsv, struct CRGBW & rgb)
 {
     // Convert hue, saturation and brightness ( HSV/HSB ) to RGB
     // "Dimming" is used on saturation and brightness to make
@@ -157,7 +157,7 @@ void hsv2rgb_raw_C (const struct CHSV & hsv, struct CRGB & rgb)
 
 
 #if defined(__AVR__) && !defined( LIB8_ATTINY )
-void hsv2rgb_raw_avr(const struct CHSV & hsv, struct CRGB & rgb)
+void hsv2rgb_raw_avr(const struct CHSV & hsv, struct CRGBW & rgb)
 {
     uint8_t hue, saturation, value;
 
@@ -253,7 +253,7 @@ void hsv2rgb_raw_avr(const struct CHSV & hsv, struct CRGB & rgb)
 
 #endif
 
-void hsv2rgb_spectrum( const CHSV& hsv, CRGB& rgb)
+void hsv2rgb_spectrum( const CHSV& hsv, CRGBW& rgb)
 {
     CHSV hsv2(hsv);
     hsv2.hue = scale8( hsv2.hue, 191);
@@ -275,7 +275,7 @@ void hsv2rgb_spectrum( const CHSV& hsv, CRGB& rgb)
 #define K170 170
 #define K85  85
 
-void hsv2rgb_rainbow( const CHSV& hsv, CRGB& rgb)
+void hsv2rgb_rainbow( const CHSV& hsv, CRGBW& rgb)
 {
     // Yellow has a higher inherent brightness than
     // any other color; 'pure' yellow is perceived to
@@ -495,19 +495,19 @@ void hsv2rgb_rainbow( const CHSV& hsv, CRGB& rgb)
 }
 
 
-void hsv2rgb_raw(const struct CHSV * phsv, struct CRGB * prgb, int numLeds) {
+void hsv2rgb_raw(const struct CHSV * phsv, struct CRGBW * prgb, int numLeds) {
     for(int i = 0; i < numLeds; i++) {
         hsv2rgb_raw(phsv[i], prgb[i]);
     }
 }
 
-void hsv2rgb_rainbow( const struct CHSV* phsv, struct CRGB * prgb, int numLeds) {
+void hsv2rgb_rainbow( const struct CHSV* phsv, struct CRGBW * prgb, int numLeds) {
     for(int i = 0; i < numLeds; i++) {
         hsv2rgb_rainbow(phsv[i], prgb[i]);
     }
 }
 
-void hsv2rgb_spectrum( const struct CHSV* phsv, struct CRGB * prgb, int numLeds) {
+void hsv2rgb_spectrum( const struct CHSV* phsv, struct CRGBW * prgb, int numLeds) {
     for(int i = 0; i < numLeds; i++) {
         hsv2rgb_spectrum(phsv[i], prgb[i]);
     }
@@ -520,7 +520,7 @@ void hsv2rgb_spectrum( const struct CHSV* phsv, struct CRGB * prgb, int numLeds)
 // This function is only an approximation, and it is not
 // nearly as fast as the normal HSV-to-RGB conversion.
 // See extended notes in the .h file.
-CHSV rgb2hsv_approximate( const CRGB& rgb)
+CHSV rgb2hsv_approximate( const CRGBW& rgb)
 {
     uint8_t r = rgb.r;
     uint8_t g = rgb.g;

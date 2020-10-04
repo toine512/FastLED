@@ -19,7 +19,7 @@ static uint32_t lastshow = 0;
 uint32_t _frame_cnt=0;
 uint32_t _retry_cnt=0;
 
-// uint32_t CRGB::Squant = ((uint32_t)((__TIME__[4]-'0') * 28))<<16 | ((__TIME__[6]-'0')*50)<<8 | ((__TIME__[7]-'0')*28);
+// uint32_t CRGBW::Squant = ((uint32_t)((__TIME__[4]-'0') * 28))<<16 | ((__TIME__[6]-'0')*50)<<8 | ((__TIME__[7]-'0')*28);
 
 CFastLED::CFastLED() {
 	// clear out the array of led controllers
@@ -31,8 +31,8 @@ CFastLED::CFastLED() {
 }
 
 CLEDController &CFastLED::addLeds(CLEDController *pLed,
-								  struct CRGB *data,
-								  int nLedsOrOffset, int nLedsIfOffset) {
+		struct CRGBW *data,
+		int nLedsOrOffset, int nLedsIfOffset) {
 	int nOffset = (nLedsIfOffset > 0) ? nLedsOrOffset : 0;
 	int nLeds = (nLedsIfOffset > 0) ? nLedsIfOffset : nLedsOrOffset;
 
@@ -64,13 +64,13 @@ void CFastLED::show(uint8_t scale) {
 }
 
 int CFastLED::count() {
-    int x = 0;
+	int x = 0;
 	CLEDController *pCur = CLEDController::head();
 	while( pCur) {
-        x++;
+		x++;
 		pCur = pCur->next();
 	}
-    return x;
+	return x;
 }
 
 CLEDController & CFastLED::operator[](int x) {
@@ -85,7 +85,7 @@ CLEDController & CFastLED::operator[](int x) {
 	}
 }
 
-void CFastLED::showColor(const struct CRGB & color, uint8_t scale) {
+void CFastLED::showColor(const struct CRGBW & color, uint8_t scale) {
 	while(m_nMinMicros && ((micros()-lastshow) < m_nMinMicros));
 	lastshow = micros();
 
@@ -107,9 +107,9 @@ void CFastLED::showColor(const struct CRGB & color, uint8_t scale) {
 
 void CFastLED::clear(bool writeData) {
 	if(writeData) {
-		showColor(CRGB(0,0,0), 0);
+		showColor(CRGBW(0,0,0,0), 0);
 	}
-    clearData();
+	clearData();
 }
 
 void CFastLED::clearData() {
@@ -122,7 +122,7 @@ void CFastLED::clearData() {
 
 void CFastLED::delay(unsigned long ms) {
 	unsigned long start = millis();
-        do {
+	do {
 #ifndef FASTLED_ACCURATE_CLOCK
 		// make sure to allow at least one ms to pass to ensure the clock moves
 		// forward
@@ -134,7 +134,7 @@ void CFastLED::delay(unsigned long ms) {
 	while((millis()-start) < ms);
 }
 
-void CFastLED::setTemperature(const struct CRGB & temp) {
+void CFastLED::setTemperature(const struct CRGBW & temp) {
 	CLEDController *pCur = CLEDController::head();
 	while(pCur) {
 		pCur->setTemperature(temp);
@@ -142,7 +142,7 @@ void CFastLED::setTemperature(const struct CRGB & temp) {
 	}
 }
 
-void CFastLED::setCorrection(const struct CRGB & correction) {
+void CFastLED::setCorrection(const struct CRGBW & correction) {
 	CLEDController *pCur = CLEDController::head();
 	while(pCur) {
 		pCur->setCorrection(correction);
@@ -169,25 +169,25 @@ void CFastLED::setDither(uint8_t ditherMode)  {
 // 	// x = (A[0]<<24)   | (A[m]<<16)   | (A[2*m]<<8) | A[3*m];
 // 	// y = (A[4*m]<<24) | (A[5*m]<<16) | (A[6*m]<<8) | A[7*m];
 //
-        // // pre-transform x
-        // t = (x ^ (x >> 7)) & 0x00AA00AA;  x = x ^ t ^ (t << 7);
-        // t = (x ^ (x >>14)) & 0x0000CCCC;  x = x ^ t ^ (t <<14);
-				//
-        // // pre-transform y
-        // t = (y ^ (y >> 7)) & 0x00AA00AA;  y = y ^ t ^ (t << 7);
-        // t = (y ^ (y >>14)) & 0x0000CCCC;  y = y ^ t ^ (t <<14);
-				//
-        // // final transform
-        // t = (x & 0xF0F0F0F0) | ((y >> 4) & 0x0F0F0F0F);
-        // y = ((x << 4) & 0xF0F0F0F0) | (y & 0x0F0F0F0F);
-        // x = t;
+// // pre-transform x
+// t = (x ^ (x >> 7)) & 0x00AA00AA;  x = x ^ t ^ (t << 7);
+// t = (x ^ (x >>14)) & 0x0000CCCC;  x = x ^ t ^ (t <<14);
+//
+// // pre-transform y
+// t = (y ^ (y >> 7)) & 0x00AA00AA;  y = y ^ t ^ (t << 7);
+// t = (y ^ (y >>14)) & 0x0000CCCC;  y = y ^ t ^ (t <<14);
+//
+// // final transform
+// t = (x & 0xF0F0F0F0) | ((y >> 4) & 0x0F0F0F0F);
+// y = ((x << 4) & 0xF0F0F0F0) | (y & 0x0F0F0F0F);
+// x = t;
 //
 // 	B[7*n] = y; y >>= 8;
 // 	B[6*n] = y; y >>= 8;
 // 	B[5*n] = y; y >>= 8;
 // 	B[4*n] = y;
 //
-//   B[3*n] = x; x >>= 8;
+// 	B[3*n] = x; x >>= 8;
 // 	B[2*n] = x; x >>= 8;
 // 	B[n] = x; x >>= 8;
 // 	B[0] = x;

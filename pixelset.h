@@ -7,8 +7,8 @@
 #include <stdlib.h>
 #endif
 
-/////  Represents a set of CRGB led objects.  Provides the [] array operator, and works like a normal array in that case.
-/////  This should be kept in sync with the set of functions provided by CRGB as well as functions in colorutils.  Note
+/////  Represents a set of CRGBW led objects.  Provides the [] array operator, and works like a normal array in that case.
+/////  This should be kept in sync with the set of functions provided by CRGBW as well as functions in colorutils.  Note
 /////  that a pixel set is a window into another set of led data, it is not its own set of led data.
 template<class PIXEL_TYPE>
 class CPixelView {
@@ -288,18 +288,18 @@ public:
     const_iterator cend() const { return const_iterator(end_pos, dir); }
 };
 
-typedef CPixelView<CRGB> CRGBSet;
+typedef CPixelView<CRGBW> CRGBWSet;
 
 __attribute__((always_inline))
-inline CRGB *operator+(const CRGBSet & pixels, int offset) { return (CRGB*)pixels + offset; }
+inline CRGBW *operator+(const CRGBWSet & pixels, int offset) { return (CRGBW*)pixels + offset; }
 
 
 template<int SIZE>
-class CRGBArray : public CPixelView<CRGB> {
-    CRGB rawleds[SIZE];
+class CRGBWArray : public CPixelView<CRGBW> {
+    CRGBW rawleds[SIZE];
 
 public:
-    CRGBArray() : CPixelView<CRGB>(rawleds, SIZE) {}
+    CRGBWArray() : CPixelView<CRGBW>(rawleds, SIZE) {}
     using CPixelView::operator=;
 };
 

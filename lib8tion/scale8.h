@@ -308,7 +308,7 @@ LIB8STATIC_ALWAYS_INLINE void cleanup_R1()
 ///
 ///         THIS FUNCTION ALWAYS MODIFIES ITS ARGUMENTS IN PLACE
 
-LIB8STATIC void nscale8x3( uint8_t& r, uint8_t& g, uint8_t& b, fract8 scale)
+LIB8STATIC void nscale8x3( uint8_t& r, uint8_t& g, uint8_t& b, uint8_t& w, fract8 scale)
 {
 #if SCALE8_C == 1
 #if (FASTLED_SCALE8_FIXED == 1)
@@ -316,15 +316,18 @@ LIB8STATIC void nscale8x3( uint8_t& r, uint8_t& g, uint8_t& b, fract8 scale)
     r = (((uint16_t)r) * scale_fixed) >> 8;
     g = (((uint16_t)g) * scale_fixed) >> 8;
     b = (((uint16_t)b) * scale_fixed) >> 8;
+    w = (((uint16_t)w) * scale_fixed) >> 8;
 #else
     r = ((int)r * (int)(scale) ) >> 8;
     g = ((int)g * (int)(scale) ) >> 8;
     b = ((int)b * (int)(scale) ) >> 8;
+    w = ((int)w * (int)(scale) ) >> 8;
 #endif
 #elif SCALE8_AVRASM == 1
     r = scale8_LEAVING_R1_DIRTY(r, scale);
     g = scale8_LEAVING_R1_DIRTY(g, scale);
     b = scale8_LEAVING_R1_DIRTY(b, scale);
+    w = scale8_LEAVING_R1_DIRTY(w, scale);
     cleanup_R1();
 #else
 #error "No implementation for nscale8x3 available."
@@ -338,17 +341,19 @@ LIB8STATIC void nscale8x3( uint8_t& r, uint8_t& g, uint8_t& b, fract8 scale)
 /// argument.
 ///
 ///         THIS FUNCTION ALWAYS MODIFIES ITS ARGUMENTS IN PLACE
-LIB8STATIC void nscale8x3_video( uint8_t& r, uint8_t& g, uint8_t& b, fract8 scale)
+LIB8STATIC void nscale8x3_video( uint8_t& r, uint8_t& g, uint8_t& b, uint8_t& w, fract8 scale)
 {
 #if SCALE8_C == 1
     uint8_t nonzeroscale = (scale != 0) ? 1 : 0;
     r = (r == 0) ? 0 : (((int)r * (int)(scale) ) >> 8) + nonzeroscale;
     g = (g == 0) ? 0 : (((int)g * (int)(scale) ) >> 8) + nonzeroscale;
     b = (b == 0) ? 0 : (((int)b * (int)(scale) ) >> 8) + nonzeroscale;
+    w = (w == 0) ? 0 : (((int)w * (int)(scale) ) >> 8) + nonzeroscale;
 #elif SCALE8_AVRASM == 1
     nscale8_video_LEAVING_R1_DIRTY( r, scale);
     nscale8_video_LEAVING_R1_DIRTY( g, scale);
     nscale8_video_LEAVING_R1_DIRTY( b, scale);
+    nscale8_video_LEAVING_R1_DIRTY( w, scale);
     cleanup_R1();
 #else
 #error "No implementation for nscale8x3 available."

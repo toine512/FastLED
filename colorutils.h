@@ -14,19 +14,19 @@ FASTLED_NAMESPACE_BEGIN
 ///@{
 
 /// fill_solid -   fill a range of LEDs with a solid color
-///                Example: fill_solid( leds, NUM_LEDS, CRGB(50,0,200));
-void fill_solid( struct CRGB * leds, int numToFill,
-                 const struct CRGB& color);
+///                Example: fill_solid( leds, NUM_LEDS, CRGBW(50,0,200));
+void fill_solid( struct CRGBW * leds, int numToFill,
+                 const struct CRGBW& color);
 
 /// fill_solid -   fill a range of LEDs with a solid color
-///                Example: fill_solid( leds, NUM_LEDS, CRGB(50,0,200));
+///                Example: fill_solid( leds, NUM_LEDS, CRGBW(50,0,200));
 void fill_solid( struct CHSV* targetArray, int numToFill,
 				 const struct CHSV& hsvColor);
 
 
 /// fill_rainbow - fill a range of LEDs with a rainbow of colors, at
 ///                full saturation and full value (brightness)
-void fill_rainbow( struct CRGB * pFirstLED, int numToFill,
+void fill_rainbow( struct CRGBW * pFirstLED, int numToFill,
                    uint8_t initialhue,
                    uint8_t deltahue = 5);
 
@@ -52,11 +52,11 @@ void fill_rainbow( struct CHSV * targetArray, int numToFill,
 //                 always what is wanted.
 //
 // fill_gradient can write the gradient colors EITHER
-//     (1) into an array of CRGBs (e.g., into leds[] array, or an RGB Palette)
+//     (1) into an array of CRGBWs (e.g., into leds[] array, or an RGB Palette)
 //   OR
 //     (2) into an array of CHSVs (e.g. an HSV Palette).
 //
-//   In the case of writing into a CRGB array, the gradient is
+//   In the case of writing into a CRGBW array, the gradient is
 //   computed in HSV space, and then HSV values are converted to RGB
 //   as they're written into the RGB array.
 
@@ -83,11 +83,11 @@ typedef enum { FORWARD_HUES, BACKWARD_HUES, SHORTEST_HUES, LONGEST_HUES } TGradi
 /// always what is wanted.
 ///
 /// fill_gradient can write the gradient colors EITHER
-///     (1) into an array of CRGBs (e.g., into leds[] array, or an RGB Palette)
+///     (1) into an array of CRGBWs (e.g., into leds[] array, or an RGB Palette)
 ///   OR
 ///     (2) into an array of CHSVs (e.g. an HSV Palette).
 ///
-///   In the case of writing into a CRGB array, the gradient is
+///   In the case of writing into a CRGBW array, the gradient is
 ///   computed in HSV space, and then HSV values are converted to RGB
 ///   as they're written into the RGB array.
 template <typename T>
@@ -220,59 +220,59 @@ void fill_gradient( T* targetArray, uint16_t numLeds,
 //                     Unlike HSV, there is no 'color wheel' in RGB space,
 //                     and therefore there's only one 'direction' for the
 //                     gradient to go, and no 'direction code' is needed.
-void fill_gradient_RGB( CRGB* leds,
-                       uint16_t startpos, CRGB startcolor,
-                       uint16_t endpos,   CRGB endcolor );
-void fill_gradient_RGB( CRGB* leds, uint16_t numLeds, const CRGB& c1, const CRGB& c2);
-void fill_gradient_RGB( CRGB* leds, uint16_t numLeds, const CRGB& c1, const CRGB& c2, const CRGB& c3);
-void fill_gradient_RGB( CRGB* leds, uint16_t numLeds, const CRGB& c1, const CRGB& c2, const CRGB& c3, const CRGB& c4);
+void fill_gradient_RGB( CRGBW* leds,
+                       uint16_t startpos, CRGBW startcolor,
+                       uint16_t endpos,   CRGBW endcolor );
+void fill_gradient_RGB( CRGBW* leds, uint16_t numLeds, const CRGBW& c1, const CRGBW& c2);
+void fill_gradient_RGB( CRGBW* leds, uint16_t numLeds, const CRGBW& c1, const CRGBW& c2, const CRGBW& c3);
+void fill_gradient_RGB( CRGBW* leds, uint16_t numLeds, const CRGBW& c1, const CRGBW& c2, const CRGBW& c3, const CRGBW& c4);
 
 
 // fadeLightBy and fade_video - reduce the brightness of an array
 //                              of pixels all at once.  Guaranteed
 //                              to never fade all the way to black.
 //                              (The two names are synonyms.)
-void fadeLightBy(   CRGB* leds, uint16_t num_leds, uint8_t fadeBy);
-void fade_video(    CRGB* leds, uint16_t num_leds, uint8_t fadeBy);
+void fadeLightBy(   CRGBW* leds, uint16_t num_leds, uint8_t fadeBy);
+void fade_video(    CRGBW* leds, uint16_t num_leds, uint8_t fadeBy);
 
 // nscale8_video - scale down the brightness of an array of pixels
 //                 all at once.  Guaranteed to never scale a pixel
 //                 all the way down to black, unless 'scale' is zero.
-void nscale8_video( CRGB* leds, uint16_t num_leds, uint8_t scale);
+void nscale8_video( CRGBW* leds, uint16_t num_leds, uint8_t scale);
 
 // fadeToBlackBy and fade_raw - reduce the brightness of an array
 //                              of pixels all at once.  These
 //                              functions will eventually fade all
 //                              the way to black.
 //                              (The two names are synonyms.)
-void fadeToBlackBy( CRGB* leds, uint16_t num_leds, uint8_t fadeBy);
-void fade_raw(      CRGB* leds, uint16_t num_leds, uint8_t fadeBy);
+void fadeToBlackBy( CRGBW* leds, uint16_t num_leds, uint8_t fadeBy);
+void fade_raw(      CRGBW* leds, uint16_t num_leds, uint8_t fadeBy);
 
 // nscale8 - scale down the brightness of an array of pixels
 //           all at once.  This function can scale pixels all the
 //           way down to black even if 'scale' is not zero.
-void nscale8(       CRGB* leds, uint16_t num_leds, uint8_t scale);
+void nscale8(       CRGBW* leds, uint16_t num_leds, uint8_t scale);
 
 // fadeUsingColor - scale down the brightness of an array of pixels,
 //                  as though it were seen through a transparent
 //                  filter with the specified color.
 //                  For example, if the colormask is
-//                    CRGB( 200, 100, 50)
+//                    CRGBW( 200, 100, 50)
 //                  then the pixels' red will be faded to 200/256ths,
 //                  their green to 100/256ths, and their blue to 50/256ths.
 //                  This particular example give a 'hot fade' look,
 //                  with white fading to yellow, then red, then black.
-//                  You can also use colormasks like CRGB::Blue to
+//                  You can also use colormasks like CRGBW::Blue to
 //                  zero out the red and green elements, leaving blue
 //                  (largely) the same.
-void fadeUsingColor( CRGB* leds, uint16_t numLeds, const CRGB& colormask);
+void fadeUsingColor( CRGBW* leds, uint16_t numLeds, const CRGBW& colormask);
 
 
 // Pixel blending
 //
 // blend - computes a new color blended some fraction of the way
 //         between two other colors.
-CRGB  blend( const CRGB& p1, const CRGB& p2, fract8 amountOfP2 );
+CRGBW  blend( const CRGBW& p1, const CRGBW& p2, fract8 amountOfP2 );
 
 CHSV  blend( const CHSV& p1, const CHSV& p2, fract8 amountOfP2,
             TGradientDirectionCode directionCode = SHORTEST_HUES );
@@ -281,7 +281,7 @@ CHSV  blend( const CHSV& p1, const CHSV& p2, fract8 amountOfP2,
 //         a given fraction of the way between corresponding
 //         elements of two source arrays of colors.
 //         Useful for blending palettes.
-CRGB* blend( const CRGB* src1, const CRGB* src2, CRGB* dest,
+CRGBW* blend( const CRGBW* src1, const CRGBW* src2, CRGBW* dest,
              uint16_t count, fract8 amountOfsrc2 );
 
 CHSV* blend( const CHSV* src1, const CHSV* src2, CHSV* dest,
@@ -290,14 +290,14 @@ CHSV* blend( const CHSV* src1, const CHSV* src2, CHSV* dest,
 
 // nblend - destructively modifies one color, blending
 //          in a given fraction of an overlay color
-CRGB& nblend( CRGB& existing, const CRGB& overlay, fract8 amountOfOverlay );
+CRGBW& nblend( CRGBW& existing, const CRGBW& overlay, fract8 amountOfOverlay );
 
 CHSV& nblend( CHSV& existing, const CHSV& overlay, fract8 amountOfOverlay,
              TGradientDirectionCode directionCode = SHORTEST_HUES );
 
 // nblend - destructively blends a given fraction of
 //          a new color array into an existing color array
-void  nblend( CRGB* existing, CRGB* overlay, uint16_t count, fract8 amountOfOverlay);
+void  nblend( CRGBW* existing, CRGBW* overlay, uint16_t count, fract8 amountOfOverlay);
 
 void  nblend( CHSV* existing, CHSV* overlay, uint16_t count, fract8 amountOfOverlay,
              TGradientDirectionCode directionCode = SHORTEST_HUES);
@@ -316,23 +316,23 @@ void  nblend( CHSV* existing, CHSV* overlay, uint16_t count, fract8 amountOfOver
 //         calls to 'blur' will also result in the light fading,
 //         eventually all the way to black; this is by design so that
 //         it can be used to (slowly) clear the LEDs to black.
-void blur1d( CRGB* leds, uint16_t numLeds, fract8 blur_amount);
-void blur2d( CRGB* leds, uint8_t width, uint8_t height, fract8 blur_amount);
+void blur1d( CRGBW* leds, uint16_t numLeds, fract8 blur_amount);
+void blur2d( CRGBW* leds, uint8_t width, uint8_t height, fract8 blur_amount);
 
 // blurRows: perform a blur1d on every row of a rectangular matrix
-void blurRows( CRGB* leds, uint8_t width, uint8_t height, fract8 blur_amount);
+void blurRows( CRGBW* leds, uint8_t width, uint8_t height, fract8 blur_amount);
 // blurColumns: perform a blur1d on each column of a rectangular matrix
-void blurColumns(CRGB* leds, uint8_t width, uint8_t height, fract8 blur_amount);
+void blurColumns(CRGBW* leds, uint8_t width, uint8_t height, fract8 blur_amount);
 
 
-// CRGB HeatColor( uint8_t temperature)
+// CRGBW HeatColor( uint8_t temperature)
 //
 // Approximates a 'black body radiation' spectrum for
 // a given 'heat' level.  This is useful for animations of 'fire'.
 // Heat is specified as an arbitrary scale from 0 (cool) to 255 (hot).
 // This is NOT a chromatically correct 'black body radiation'
 // spectrum, but it's surprisingly close, and it's fast and small.
-CRGB HeatColor( uint8_t temperature);
+CRGBW HeatColor( uint8_t temperature);
 
 
 // Palettes
@@ -349,19 +349,19 @@ CRGB HeatColor( uint8_t temperature);
 //
 // Basic operation is like this: (example shows the 16-entry variety)
 // 1. Declare your palette storage:
-//    CRGBPalette16 myPalette;
+//    CRGBWPalette16 myPalette;
 //
 // 2. Fill myPalette with your own 16 colors, or with a preset color scheme.
 //    You can specify your 16 colors a variety of ways:
-//      CRGBPalette16 myPalette(
-//          CRGB::Black,
-//          CRGB::Black,
-//          CRGB::Red,
-//          CRGB::Yellow,
-//          CRGB::Green,
-//          CRGB::Blue,
-//          CRGB::Purple,
-//          CRGB::Black,
+//      CRGBWPalette16 myPalette(
+//          CRGBW::Black,
+//          CRGBW::Black,
+//          CRGBW::Red,
+//          CRGBW::Yellow,
+//          CRGBW::Green,
+//          CRGBW::Blue,
+//          CRGBW::Purple,
+//          CRGBW::Black,
 //
 //          0x100000,
 //          0x200000,
@@ -391,9 +391,9 @@ CRGB HeatColor( uint8_t temperature);
 //    It's easier to use than it sounds.
 //
 
-class CRGBPalette16;
-class CRGBPalette32;
-class CRGBPalette256;
+class CRGBWPalette16;
+class CRGBWPalette32;
+class CRGBWPalette256;
 class CHSVPalette16;
 class CHSVPalette32;
 class CHSVPalette256;
@@ -413,6 +413,7 @@ typedef union {
         uint8_t r;
         uint8_t g;
         uint8_t b;
+        uint8_t w;
     };
     uint32_t dword;
     uint8_t  bytes[4];
@@ -423,15 +424,15 @@ typedef const TDynamicRGBGradientPalette_byte *TDynamicRGBGradientPalette_bytes;
 typedef TDynamicRGBGradientPalette_bytes TDynamicRGBGradientPalettePtr;
 
 // Convert a 16-entry palette to a 256-entry palette
-void UpscalePalette(const struct CRGBPalette16& srcpal16, struct CRGBPalette256& destpal256);
+void UpscalePalette(const struct CRGBWPalette16& srcpal16, struct CRGBWPalette256& destpal256);
 void UpscalePalette(const struct CHSVPalette16& srcpal16, struct CHSVPalette256& destpal256);
 
 // Convert a 16-entry palette to a 32-entry palette
-void UpscalePalette(const struct CRGBPalette16& srcpal16, struct CRGBPalette32& destpal32);
+void UpscalePalette(const struct CRGBWPalette16& srcpal16, struct CRGBWPalette32& destpal32);
 void UpscalePalette(const struct CHSVPalette16& srcpal16, struct CHSVPalette32& destpal32);
 
 // Convert a 32-entry palette to a 256-entry palette
-void UpscalePalette(const struct CRGBPalette32& srcpal32, struct CRGBPalette256& destpal256);
+void UpscalePalette(const struct CRGBWPalette32& srcpal32, struct CRGBWPalette256& destpal256);
 void UpscalePalette(const struct CHSVPalette32& srcpal32, struct CHSVPalette256& destpal256);
 
 
@@ -463,7 +464,7 @@ public:
     CHSVPalette16( const TProgmemHSVPalette16& rhs)
     {
         for( uint8_t i = 0; i < 16; i++) {
-            CRGB xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
+            CRGBW xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
             entries[i].hue = xyz.red;
             entries[i].sat = xyz.green;
             entries[i].val = xyz.blue;
@@ -472,7 +473,7 @@ public:
     CHSVPalette16& operator=( const TProgmemHSVPalette16& rhs)
     {
         for( uint8_t i = 0; i < 16; i++) {
-            CRGB xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
+            CRGBW xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
             entries[i].hue = xyz.red;
             entries[i].sat = xyz.green;
             entries[i].val = xyz.blue;
@@ -643,14 +644,14 @@ public:
     }
 };
 
-class CRGBPalette16 {
+class CRGBWPalette16 {
 public:
-    CRGB entries[16];
-    CRGBPalette16() {};
-    CRGBPalette16( const CRGB& c00,const CRGB& c01,const CRGB& c02,const CRGB& c03,
-                    const CRGB& c04,const CRGB& c05,const CRGB& c06,const CRGB& c07,
-                    const CRGB& c08,const CRGB& c09,const CRGB& c10,const CRGB& c11,
-                    const CRGB& c12,const CRGB& c13,const CRGB& c14,const CRGB& c15 )
+    CRGBW entries[16];
+    CRGBWPalette16() {};
+    CRGBWPalette16( const CRGBW& c00,const CRGBW& c01,const CRGBW& c02,const CRGBW& c03,
+                    const CRGBW& c04,const CRGBW& c05,const CRGBW& c06,const CRGBW& c07,
+                    const CRGBW& c08,const CRGBW& c09,const CRGBW& c10,const CRGBW& c11,
+                    const CRGBW& c12,const CRGBW& c13,const CRGBW& c14,const CRGBW& c15 )
     {
         entries[0]=c00; entries[1]=c01; entries[2]=c02; entries[3]=c03;
         entries[4]=c04; entries[5]=c05; entries[6]=c06; entries[7]=c07;
@@ -658,45 +659,45 @@ public:
         entries[12]=c12; entries[13]=c13; entries[14]=c14; entries[15]=c15;
     };
 
-    CRGBPalette16( const CRGBPalette16& rhs)
+    CRGBWPalette16( const CRGBWPalette16& rhs)
     {
         memmove8( (void *) &(entries[0]), &(rhs.entries[0]), sizeof( entries));
     }
-    CRGBPalette16( const CRGB rhs[16])
+    CRGBWPalette16( const CRGBW rhs[16])
     {
         memmove8( (void *) &(entries[0]), &(rhs[0]), sizeof( entries));
     }
-    CRGBPalette16& operator=( const CRGBPalette16& rhs)
+    CRGBWPalette16& operator=( const CRGBWPalette16& rhs)
     {
         memmove8( (void *) &(entries[0]), &(rhs.entries[0]), sizeof( entries));
         return *this;
     }
-    CRGBPalette16& operator=( const CRGB rhs[16])
+    CRGBWPalette16& operator=( const CRGBW rhs[16])
     {
         memmove8( (void *) &(entries[0]), &(rhs[0]), sizeof( entries));
         return *this;
     }
 
-    CRGBPalette16( const CHSVPalette16& rhs)
+    CRGBWPalette16( const CHSVPalette16& rhs)
     {
         for( uint8_t i = 0; i < 16; i++) {
     		entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
         }
     }
-    CRGBPalette16( const CHSV rhs[16])
+    CRGBWPalette16( const CHSV rhs[16])
     {
         for( uint8_t i = 0; i < 16; i++) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
         }
     }
-    CRGBPalette16& operator=( const CHSVPalette16& rhs)
+    CRGBWPalette16& operator=( const CHSVPalette16& rhs)
     {
         for( uint8_t i = 0; i < 16; i++) {
     		entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
         }
         return *this;
     }
-    CRGBPalette16& operator=( const CHSV rhs[16])
+    CRGBWPalette16& operator=( const CHSV rhs[16])
     {
         for( uint8_t i = 0; i < 16; i++) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
@@ -704,13 +705,13 @@ public:
         return *this;
     }
 
-    CRGBPalette16( const TProgmemRGBPalette16& rhs)
+    CRGBWPalette16( const TProgmemRGBPalette16& rhs)
     {
         for( uint8_t i = 0; i < 16; i++) {
             entries[i] =  FL_PGM_READ_DWORD_NEAR( rhs + i);
         }
     }
-    CRGBPalette16& operator=( const TProgmemRGBPalette16& rhs)
+    CRGBWPalette16& operator=( const TProgmemRGBPalette16& rhs)
     {
         for( uint8_t i = 0; i < 16; i++) {
             entries[i] =  FL_PGM_READ_DWORD_NEAR( rhs + i);
@@ -718,7 +719,7 @@ public:
         return *this;
     }
 
-    bool operator==( const CRGBPalette16 rhs)
+    bool operator==( const CRGBWPalette16 rhs)
     {
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
         const uint8_t* q = (const uint8_t*)(&(rhs.entries[0]));
@@ -730,72 +731,72 @@ public:
         }
         return true;
     }
-    bool operator!=( const CRGBPalette16 rhs)
+    bool operator!=( const CRGBWPalette16 rhs)
     {
         return !( *this == rhs);
     }
     
-    inline CRGB& operator[] (uint8_t x) __attribute__((always_inline))
+    inline CRGBW& operator[] (uint8_t x) __attribute__((always_inline))
     {
         return entries[x];
     }
-    inline const CRGB& operator[] (uint8_t x) const __attribute__((always_inline))
+    inline const CRGBW& operator[] (uint8_t x) const __attribute__((always_inline))
     {
         return entries[x];
     }
 
-    inline CRGB& operator[] (int x) __attribute__((always_inline))
+    inline CRGBW& operator[] (int x) __attribute__((always_inline))
     {
         return entries[(uint8_t)x];
     }
-    inline const CRGB& operator[] (int x) const __attribute__((always_inline))
+    inline const CRGBW& operator[] (int x) const __attribute__((always_inline))
     {
         return entries[(uint8_t)x];
     }
 
-    operator CRGB*()
+    operator CRGBW*()
     {
         return &(entries[0]);
     }
 
-    CRGBPalette16( const CHSV& c1)
+    CRGBWPalette16( const CHSV& c1)
     {
         fill_solid( &(entries[0]), 16, c1);
     }
-    CRGBPalette16( const CHSV& c1, const CHSV& c2)
+    CRGBWPalette16( const CHSV& c1, const CHSV& c2)
     {
         fill_gradient( &(entries[0]), 16, c1, c2);
     }
-    CRGBPalette16( const CHSV& c1, const CHSV& c2, const CHSV& c3)
+    CRGBWPalette16( const CHSV& c1, const CHSV& c2, const CHSV& c3)
     {
         fill_gradient( &(entries[0]), 16, c1, c2, c3);
     }
-    CRGBPalette16( const CHSV& c1, const CHSV& c2, const CHSV& c3, const CHSV& c4)
+    CRGBWPalette16( const CHSV& c1, const CHSV& c2, const CHSV& c3, const CHSV& c4)
     {
         fill_gradient( &(entries[0]), 16, c1, c2, c3, c4);
     }
 
-    CRGBPalette16( const CRGB& c1)
+    CRGBWPalette16( const CRGBW& c1)
     {
         fill_solid( &(entries[0]), 16, c1);
     }
-    CRGBPalette16( const CRGB& c1, const CRGB& c2)
+    CRGBWPalette16( const CRGBW& c1, const CRGBW& c2)
     {
         fill_gradient_RGB( &(entries[0]), 16, c1, c2);
     }
-    CRGBPalette16( const CRGB& c1, const CRGB& c2, const CRGB& c3)
+    CRGBWPalette16( const CRGBW& c1, const CRGBW& c2, const CRGBW& c3)
     {
         fill_gradient_RGB( &(entries[0]), 16, c1, c2, c3);
     }
-    CRGBPalette16( const CRGB& c1, const CRGB& c2, const CRGB& c3, const CRGB& c4)
+    CRGBWPalette16( const CRGBW& c1, const CRGBW& c2, const CRGBW& c3, const CRGBW& c4)
     {
         fill_gradient_RGB( &(entries[0]), 16, c1, c2, c3, c4);
     }
 
 
-    // Gradient palettes are loaded into CRGB16Palettes in such a way
+    // Gradient palettes are loaded into CRGBW16Palettes in such a way
     // that, if possible, every color represented in the gradient palette
-    // is also represented in the CRGBPalette16.
+    // is also represented in the CRGBWPalette16.
     // For example, consider a gradient palette that is all black except
     // for a single, one-element-wide (1/256th!) spike of red in the middle:
     //     0,   0,0,0
@@ -808,18 +809,18 @@ public:
     // palette completely black.
     // However, the conversions provided here would attempt to include a
     // the red stripe in the output, more-or-less as faithfully as possible.
-    // So in this case, the resulting CRGBPalette16 palette would have a red
+    // So in this case, the resulting CRGBWPalette16 palette would have a red
     // stripe in the middle which was 1/16th of a palette wide -- the
-    // narrowest possible in a CRGBPalette16.
-    // This means that the relative width of stripes in a CRGBPalette16
+    // narrowest possible in a CRGBWPalette16.
+    // This means that the relative width of stripes in a CRGBWPalette16
     // will be, by definition, different from the widths in the gradient
     // palette.  This code attempts to preserve "all the colors", rather than
     // the exact stripe widths at the expense of dropping some colors.
-    CRGBPalette16( TProgmemRGBGradientPalette_bytes progpal )
+    CRGBWPalette16( TProgmemRGBGradientPalette_bytes progpal )
     {
         *this = progpal;
     }
-    CRGBPalette16& operator=( TProgmemRGBGradientPalette_bytes progpal )
+    CRGBWPalette16& operator=( TProgmemRGBGradientPalette_bytes progpal )
     {
         TRGBGradientPaletteEntryUnion* progent = (TRGBGradientPaletteEntryUnion*)(progpal);
         TRGBGradientPaletteEntryUnion u;
@@ -834,7 +835,7 @@ public:
         int8_t lastSlotUsed = -1;
 
         u.dword = FL_PGM_READ_DWORD_NEAR( progent);
-        CRGB rgbstart( u.r, u.g, u.b);
+        CRGBW rgbstart( u.r, u.g, u.b, u.w);
 
         int indexstart = 0;
         uint8_t istart8 = 0;
@@ -843,7 +844,7 @@ public:
             progent++;
             u.dword = FL_PGM_READ_DWORD_NEAR( progent);
             int indexend  = u.index;
-            CRGB rgbend( u.r, u.g, u.b);
+            CRGBW rgbend( u.r, u.g, u.b, u.w);
             istart8 = indexstart / 16;
             iend8   = indexend   / 16;
             if( count < 16) {
@@ -861,7 +862,7 @@ public:
         }
         return *this;
     }
-    CRGBPalette16& loadDynamicGradientPalette( TDynamicRGBGradientPalette_bytes gpal )
+    CRGBWPalette16& loadDynamicGradientPalette( TDynamicRGBGradientPalette_bytes gpal )
     {
         TRGBGradientPaletteEntryUnion* ent = (TRGBGradientPaletteEntryUnion*)(gpal);
         TRGBGradientPaletteEntryUnion u;
@@ -877,7 +878,7 @@ public:
 
 
         u = *ent;
-        CRGB rgbstart( u.r, u.g, u.b);
+        CRGBW rgbstart( u.r, u.g, u.b, u.w);
 
         int indexstart = 0;
         uint8_t istart8 = 0;
@@ -886,7 +887,7 @@ public:
             ent++;
             u = *ent;
             int indexend  = u.index;
-            CRGB rgbend( u.r, u.g, u.b);
+            CRGBW rgbend( u.r, u.g, u.b, u.w);
             istart8 = indexstart / 16;
             iend8   = indexend   / 16;
             if( count < 16) {
@@ -939,7 +940,7 @@ public:
     CHSVPalette32( const TProgmemHSVPalette32& rhs)
     {
         for( uint8_t i = 0; i < 32; i++) {
-            CRGB xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
+            CRGBW xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
             entries[i].hue = xyz.red;
             entries[i].sat = xyz.green;
             entries[i].val = xyz.blue;
@@ -948,7 +949,7 @@ public:
     CHSVPalette32& operator=( const TProgmemHSVPalette32& rhs)
     {
         for( uint8_t i = 0; i < 32; i++) {
-            CRGB xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
+            CRGBW xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
             entries[i].hue = xyz.red;
             entries[i].sat = xyz.green;
             entries[i].val = xyz.blue;
@@ -1015,14 +1016,14 @@ public:
     
 };
 
-class CRGBPalette32 {
+class CRGBWPalette32 {
 public:
-    CRGB entries[32];
-    CRGBPalette32() {};
-    CRGBPalette32( const CRGB& c00,const CRGB& c01,const CRGB& c02,const CRGB& c03,
-                  const CRGB& c04,const CRGB& c05,const CRGB& c06,const CRGB& c07,
-                  const CRGB& c08,const CRGB& c09,const CRGB& c10,const CRGB& c11,
-                  const CRGB& c12,const CRGB& c13,const CRGB& c14,const CRGB& c15 )
+    CRGBW entries[32];
+    CRGBWPalette32() {};
+    CRGBWPalette32( const CRGBW& c00,const CRGBW& c01,const CRGBW& c02,const CRGBW& c03,
+                  const CRGBW& c04,const CRGBW& c05,const CRGBW& c06,const CRGBW& c07,
+                  const CRGBW& c08,const CRGBW& c09,const CRGBW& c10,const CRGBW& c11,
+                  const CRGBW& c12,const CRGBW& c13,const CRGBW& c14,const CRGBW& c15 )
     {
         for( uint8_t i = 0; i < 2; i++) {
             entries[0+i]=c00; entries[2+i]=c01; entries[4+i]=c02; entries[6+i]=c03;
@@ -1032,45 +1033,45 @@ public:
         }
     };
     
-    CRGBPalette32( const CRGBPalette32& rhs)
+    CRGBWPalette32( const CRGBWPalette32& rhs)
     {
         memmove8( (void *) &(entries[0]), &(rhs.entries[0]), sizeof( entries));
     }
-    CRGBPalette32( const CRGB rhs[32])
+    CRGBWPalette32( const CRGBW rhs[32])
     {
         memmove8( (void *) &(entries[0]), &(rhs[0]), sizeof( entries));
     }
-    CRGBPalette32& operator=( const CRGBPalette32& rhs)
+    CRGBWPalette32& operator=( const CRGBWPalette32& rhs)
     {
         memmove8( (void *) &(entries[0]), &(rhs.entries[0]), sizeof( entries));
         return *this;
     }
-    CRGBPalette32& operator=( const CRGB rhs[32])
+    CRGBWPalette32& operator=( const CRGBW rhs[32])
     {
         memmove8( (void *) &(entries[0]), &(rhs[0]), sizeof( entries));
         return *this;
     }
     
-    CRGBPalette32( const CHSVPalette32& rhs)
+    CRGBWPalette32( const CHSVPalette32& rhs)
     {
         for( uint8_t i = 0; i < 32; i++) {
             entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
         }
     }
-    CRGBPalette32( const CHSV rhs[32])
+    CRGBWPalette32( const CHSV rhs[32])
     {
         for( uint8_t i = 0; i < 32; i++) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
         }
     }
-    CRGBPalette32& operator=( const CHSVPalette32& rhs)
+    CRGBWPalette32& operator=( const CHSVPalette32& rhs)
     {
         for( uint8_t i = 0; i < 32; i++) {
             entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
         }
         return *this;
     }
-    CRGBPalette32& operator=( const CHSV rhs[32])
+    CRGBWPalette32& operator=( const CHSV rhs[32])
     {
         for( uint8_t i = 0; i < 32; i++) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
@@ -1078,13 +1079,13 @@ public:
         return *this;
     }
     
-    CRGBPalette32( const TProgmemRGBPalette32& rhs)
+    CRGBWPalette32( const TProgmemRGBPalette32& rhs)
     {
         for( uint8_t i = 0; i < 32; i++) {
             entries[i] =  FL_PGM_READ_DWORD_NEAR( rhs + i);
         }
     }
-    CRGBPalette32& operator=( const TProgmemRGBPalette32& rhs)
+    CRGBWPalette32& operator=( const TProgmemRGBPalette32& rhs)
     {
         for( uint8_t i = 0; i < 32; i++) {
             entries[i] =  FL_PGM_READ_DWORD_NEAR( rhs + i);
@@ -1092,7 +1093,7 @@ public:
         return *this;
     }
     
-    bool operator==( const CRGBPalette32 rhs)
+    bool operator==( const CRGBWPalette32 rhs)
     {
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
         const uint8_t* q = (const uint8_t*)(&(rhs.entries[0]));
@@ -1104,95 +1105,95 @@ public:
         }
         return true;
     }
-    bool operator!=( const CRGBPalette32 rhs)
+    bool operator!=( const CRGBWPalette32 rhs)
     {
         return !( *this == rhs);
     }
     
-    inline CRGB& operator[] (uint8_t x) __attribute__((always_inline))
+    inline CRGBW& operator[] (uint8_t x) __attribute__((always_inline))
     {
         return entries[x];
     }
-    inline const CRGB& operator[] (uint8_t x) const __attribute__((always_inline))
+    inline const CRGBW& operator[] (uint8_t x) const __attribute__((always_inline))
     {
         return entries[x];
     }
     
-    inline CRGB& operator[] (int x) __attribute__((always_inline))
+    inline CRGBW& operator[] (int x) __attribute__((always_inline))
     {
         return entries[(uint8_t)x];
     }
-    inline const CRGB& operator[] (int x) const __attribute__((always_inline))
+    inline const CRGBW& operator[] (int x) const __attribute__((always_inline))
     {
         return entries[(uint8_t)x];
     }
     
-    operator CRGB*()
+    operator CRGBW*()
     {
         return &(entries[0]);
     }
     
-    CRGBPalette32( const CHSV& c1)
+    CRGBWPalette32( const CHSV& c1)
     {
         fill_solid( &(entries[0]), 32, c1);
     }
-    CRGBPalette32( const CHSV& c1, const CHSV& c2)
+    CRGBWPalette32( const CHSV& c1, const CHSV& c2)
     {
         fill_gradient( &(entries[0]), 32, c1, c2);
     }
-    CRGBPalette32( const CHSV& c1, const CHSV& c2, const CHSV& c3)
+    CRGBWPalette32( const CHSV& c1, const CHSV& c2, const CHSV& c3)
     {
         fill_gradient( &(entries[0]), 32, c1, c2, c3);
     }
-    CRGBPalette32( const CHSV& c1, const CHSV& c2, const CHSV& c3, const CHSV& c4)
+    CRGBWPalette32( const CHSV& c1, const CHSV& c2, const CHSV& c3, const CHSV& c4)
     {
         fill_gradient( &(entries[0]), 32, c1, c2, c3, c4);
     }
     
-    CRGBPalette32( const CRGB& c1)
+    CRGBWPalette32( const CRGBW& c1)
     {
         fill_solid( &(entries[0]), 32, c1);
     }
-    CRGBPalette32( const CRGB& c1, const CRGB& c2)
+    CRGBWPalette32( const CRGBW& c1, const CRGBW& c2)
     {
         fill_gradient_RGB( &(entries[0]), 32, c1, c2);
     }
-    CRGBPalette32( const CRGB& c1, const CRGB& c2, const CRGB& c3)
+    CRGBWPalette32( const CRGBW& c1, const CRGBW& c2, const CRGBW& c3)
     {
         fill_gradient_RGB( &(entries[0]), 32, c1, c2, c3);
     }
-    CRGBPalette32( const CRGB& c1, const CRGB& c2, const CRGB& c3, const CRGB& c4)
+    CRGBWPalette32( const CRGBW& c1, const CRGBW& c2, const CRGBW& c3, const CRGBW& c4)
     {
         fill_gradient_RGB( &(entries[0]), 32, c1, c2, c3, c4);
     }
     
     
-    CRGBPalette32( const CRGBPalette16& rhs16)
+    CRGBWPalette32( const CRGBWPalette16& rhs16)
     {
         UpscalePalette( rhs16, *this);
     }
-    CRGBPalette32& operator=( const CRGBPalette16& rhs16)
+    CRGBWPalette32& operator=( const CRGBWPalette16& rhs16)
     {
         UpscalePalette( rhs16, *this);
         return *this;
     }
     
-    CRGBPalette32( const TProgmemRGBPalette16& rhs)
+    CRGBWPalette32( const TProgmemRGBPalette16& rhs)
     {
-        CRGBPalette16 p16(rhs);
+        CRGBWPalette16 p16(rhs);
         *this = p16;
     }
-    CRGBPalette32& operator=( const TProgmemRGBPalette16& rhs)
+    CRGBWPalette32& operator=( const TProgmemRGBPalette16& rhs)
     {
-        CRGBPalette16 p16(rhs);
+        CRGBWPalette16 p16(rhs);
         *this = p16;
         return *this;
     }
     
     
-    // Gradient palettes are loaded into CRGB16Palettes in such a way
+    // Gradient palettes are loaded into CRGBW16Palettes in such a way
     // that, if possible, every color represented in the gradient palette
-    // is also represented in the CRGBPalette32.
+    // is also represented in the CRGBWPalette32.
     // For example, consider a gradient palette that is all black except
     // for a single, one-element-wide (1/256th!) spike of red in the middle:
     //     0,   0,0,0
@@ -1205,18 +1206,18 @@ public:
     // palette completely black.
     // However, the conversions provided here would attempt to include a
     // the red stripe in the output, more-or-less as faithfully as possible.
-    // So in this case, the resulting CRGBPalette32 palette would have a red
+    // So in this case, the resulting CRGBWPalette32 palette would have a red
     // stripe in the middle which was 1/16th of a palette wide -- the
-    // narrowest possible in a CRGBPalette32.
-    // This means that the relative width of stripes in a CRGBPalette32
+    // narrowest possible in a CRGBWPalette32.
+    // This means that the relative width of stripes in a CRGBWPalette32
     // will be, by definition, different from the widths in the gradient
     // palette.  This code attempts to preserve "all the colors", rather than
     // the exact stripe widths at the expense of dropping some colors.
-    CRGBPalette32( TProgmemRGBGradientPalette_bytes progpal )
+    CRGBWPalette32( TProgmemRGBGradientPalette_bytes progpal )
     {
         *this = progpal;
     }
-    CRGBPalette32& operator=( TProgmemRGBGradientPalette_bytes progpal )
+    CRGBWPalette32& operator=( TProgmemRGBGradientPalette_bytes progpal )
     {
         TRGBGradientPaletteEntryUnion* progent = (TRGBGradientPaletteEntryUnion*)(progpal);
         TRGBGradientPaletteEntryUnion u;
@@ -1231,7 +1232,7 @@ public:
         int8_t lastSlotUsed = -1;
         
         u.dword = FL_PGM_READ_DWORD_NEAR( progent);
-        CRGB rgbstart( u.r, u.g, u.b);
+        CRGBW rgbstart( u.r, u.g, u.b, u.w);
         
         int indexstart = 0;
         uint8_t istart8 = 0;
@@ -1240,7 +1241,7 @@ public:
             progent++;
             u.dword = FL_PGM_READ_DWORD_NEAR( progent);
             int indexend  = u.index;
-            CRGB rgbend( u.r, u.g, u.b);
+            CRGBW rgbend( u.r, u.g, u.b, u.w);
             istart8 = indexstart / 8;
             iend8   = indexend   / 8;
             if( count < 16) {
@@ -1258,7 +1259,7 @@ public:
         }
         return *this;
     }
-    CRGBPalette32& loadDynamicGradientPalette( TDynamicRGBGradientPalette_bytes gpal )
+    CRGBWPalette32& loadDynamicGradientPalette( TDynamicRGBGradientPalette_bytes gpal )
     {
         TRGBGradientPaletteEntryUnion* ent = (TRGBGradientPaletteEntryUnion*)(gpal);
         TRGBGradientPaletteEntryUnion u;
@@ -1274,7 +1275,7 @@ public:
         
         
         u = *ent;
-        CRGB rgbstart( u.r, u.g, u.b);
+        CRGBW rgbstart( u.r, u.g, u.b, u.w);
         
         int indexstart = 0;
         uint8_t istart8 = 0;
@@ -1283,7 +1284,7 @@ public:
             ent++;
             u = *ent;
             int indexend  = u.index;
-            CRGB rgbend( u.r, u.g, u.b);
+            CRGBW rgbend( u.r, u.g, u.b, u.w);
             istart8 = indexstart / 8;
             iend8   = indexend   / 8;
             if( count < 16) {
@@ -1306,59 +1307,59 @@ public:
 
 
 
-class CRGBPalette256 {
+class CRGBWPalette256 {
 public:
-    CRGB entries[256];
-    CRGBPalette256() {};
-    CRGBPalette256( const CRGB& c00,const CRGB& c01,const CRGB& c02,const CRGB& c03,
-                  const CRGB& c04,const CRGB& c05,const CRGB& c06,const CRGB& c07,
-                  const CRGB& c08,const CRGB& c09,const CRGB& c10,const CRGB& c11,
-                  const CRGB& c12,const CRGB& c13,const CRGB& c14,const CRGB& c15 )
+    CRGBW entries[256];
+    CRGBWPalette256() {};
+    CRGBWPalette256( const CRGBW& c00,const CRGBW& c01,const CRGBW& c02,const CRGBW& c03,
+                  const CRGBW& c04,const CRGBW& c05,const CRGBW& c06,const CRGBW& c07,
+                  const CRGBW& c08,const CRGBW& c09,const CRGBW& c10,const CRGBW& c11,
+                  const CRGBW& c12,const CRGBW& c13,const CRGBW& c14,const CRGBW& c15 )
     {
-        CRGBPalette16 p16(c00,c01,c02,c03,c04,c05,c06,c07,
+        CRGBWPalette16 p16(c00,c01,c02,c03,c04,c05,c06,c07,
                           c08,c09,c10,c11,c12,c13,c14,c15);
         *this = p16;
     };
 
-    CRGBPalette256( const CRGBPalette256& rhs)
+    CRGBWPalette256( const CRGBWPalette256& rhs)
     {
         memmove8( (void *) &(entries[0]), &(rhs.entries[0]), sizeof( entries));
     }
-    CRGBPalette256( const CRGB rhs[256])
+    CRGBWPalette256( const CRGBW rhs[256])
     {
         memmove8( (void *) &(entries[0]), &(rhs[0]), sizeof( entries));
     }
-    CRGBPalette256& operator=( const CRGBPalette256& rhs)
+    CRGBWPalette256& operator=( const CRGBWPalette256& rhs)
     {
         memmove8( (void *) &(entries[0]), &(rhs.entries[0]), sizeof( entries));
         return *this;
     }
-    CRGBPalette256& operator=( const CRGB rhs[256])
+    CRGBWPalette256& operator=( const CRGBW rhs[256])
     {
         memmove8( (void *) &(entries[0]), &(rhs[0]), sizeof( entries));
         return *this;
     }
 
-    CRGBPalette256( const CHSVPalette256& rhs)
+    CRGBWPalette256( const CHSVPalette256& rhs)
     {
     	for( int i = 0; i < 256; i++) {
 	    	entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
     	}
     }
-    CRGBPalette256( const CHSV rhs[256])
+    CRGBWPalette256( const CHSV rhs[256])
     {
         for( int i = 0; i < 256; i++) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
         }
     }
-    CRGBPalette256& operator=( const CHSVPalette256& rhs)
+    CRGBWPalette256& operator=( const CHSVPalette256& rhs)
     {
     	for( int i = 0; i < 256; i++) {
 	    	entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
     	}
         return *this;
     }
-    CRGBPalette256& operator=( const CHSV rhs[256])
+    CRGBWPalette256& operator=( const CHSV rhs[256])
     {
         for( int i = 0; i < 256; i++) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
@@ -1366,29 +1367,29 @@ public:
         return *this;
     }
 
-    CRGBPalette256( const CRGBPalette16& rhs16)
+    CRGBWPalette256( const CRGBWPalette16& rhs16)
     {
         UpscalePalette( rhs16, *this);
     }
-    CRGBPalette256& operator=( const CRGBPalette16& rhs16)
+    CRGBWPalette256& operator=( const CRGBWPalette16& rhs16)
     {
         UpscalePalette( rhs16, *this);
         return *this;
     }
 
-    CRGBPalette256( const TProgmemRGBPalette16& rhs)
+    CRGBWPalette256( const TProgmemRGBPalette16& rhs)
     {
-        CRGBPalette16 p16(rhs);
+        CRGBWPalette16 p16(rhs);
         *this = p16;
     }
-    CRGBPalette256& operator=( const TProgmemRGBPalette16& rhs)
+    CRGBWPalette256& operator=( const TProgmemRGBPalette16& rhs)
     {
-        CRGBPalette16 p16(rhs);
+        CRGBWPalette16 p16(rhs);
         *this = p16;
         return *this;
     }
 
-    bool operator==( const CRGBPalette256 rhs)
+    bool operator==( const CRGBWPalette256 rhs)
     {
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
         const uint8_t* q = (const uint8_t*)(&(rhs.entries[0]));
@@ -1400,104 +1401,104 @@ public:
         }
         return true;
     }
-    bool operator!=( const CRGBPalette256 rhs)
+    bool operator!=( const CRGBWPalette256 rhs)
     {
         return !( *this == rhs);
     }
     
-    inline CRGB& operator[] (uint8_t x) __attribute__((always_inline))
+    inline CRGBW& operator[] (uint8_t x) __attribute__((always_inline))
     {
         return entries[x];
     }
-    inline const CRGB& operator[] (uint8_t x) const __attribute__((always_inline))
+    inline const CRGBW& operator[] (uint8_t x) const __attribute__((always_inline))
     {
         return entries[x];
     }
 
-    inline CRGB& operator[] (int x) __attribute__((always_inline))
+    inline CRGBW& operator[] (int x) __attribute__((always_inline))
     {
         return entries[(uint8_t)x];
     }
-    inline const CRGB& operator[] (int x) const __attribute__((always_inline))
+    inline const CRGBW& operator[] (int x) const __attribute__((always_inline))
     {
         return entries[(uint8_t)x];
     }
 
-    operator CRGB*()
+    operator CRGBW*()
     {
         return &(entries[0]);
     }
 
-    CRGBPalette256( const CHSV& c1)
+    CRGBWPalette256( const CHSV& c1)
     {
         fill_solid( &(entries[0]), 256, c1);
     }
-    CRGBPalette256( const CHSV& c1, const CHSV& c2)
+    CRGBWPalette256( const CHSV& c1, const CHSV& c2)
     {
         fill_gradient( &(entries[0]), 256, c1, c2);
     }
-    CRGBPalette256( const CHSV& c1, const CHSV& c2, const CHSV& c3)
+    CRGBWPalette256( const CHSV& c1, const CHSV& c2, const CHSV& c3)
     {
         fill_gradient( &(entries[0]), 256, c1, c2, c3);
     }
-    CRGBPalette256( const CHSV& c1, const CHSV& c2, const CHSV& c3, const CHSV& c4)
+    CRGBWPalette256( const CHSV& c1, const CHSV& c2, const CHSV& c3, const CHSV& c4)
     {
         fill_gradient( &(entries[0]), 256, c1, c2, c3, c4);
     }
 
-    CRGBPalette256( const CRGB& c1)
+    CRGBWPalette256( const CRGBW& c1)
     {
         fill_solid( &(entries[0]), 256, c1);
     }
-    CRGBPalette256( const CRGB& c1, const CRGB& c2)
+    CRGBWPalette256( const CRGBW& c1, const CRGBW& c2)
     {
         fill_gradient_RGB( &(entries[0]), 256, c1, c2);
     }
-    CRGBPalette256( const CRGB& c1, const CRGB& c2, const CRGB& c3)
+    CRGBWPalette256( const CRGBW& c1, const CRGBW& c2, const CRGBW& c3)
     {
         fill_gradient_RGB( &(entries[0]), 256, c1, c2, c3);
     }
-    CRGBPalette256( const CRGB& c1, const CRGB& c2, const CRGB& c3, const CRGB& c4)
+    CRGBWPalette256( const CRGBW& c1, const CRGBW& c2, const CRGBW& c3, const CRGBW& c4)
     {
         fill_gradient_RGB( &(entries[0]), 256, c1, c2, c3, c4);
     }
 
-    CRGBPalette256( TProgmemRGBGradientPalette_bytes progpal )
+    CRGBWPalette256( TProgmemRGBGradientPalette_bytes progpal )
     {
         *this = progpal;
     }
-    CRGBPalette256& operator=( TProgmemRGBGradientPalette_bytes progpal )
+    CRGBWPalette256& operator=( TProgmemRGBGradientPalette_bytes progpal )
     {
         TRGBGradientPaletteEntryUnion* progent = (TRGBGradientPaletteEntryUnion*)(progpal);
         TRGBGradientPaletteEntryUnion u;
         u.dword = FL_PGM_READ_DWORD_NEAR( progent);
-        CRGB rgbstart( u.r, u.g, u.b);
+        CRGBW rgbstart( u.r, u.g, u.b, u.w);
 
         int indexstart = 0;
         while( indexstart < 255) {
             progent++;
             u.dword = FL_PGM_READ_DWORD_NEAR( progent);
             int indexend  = u.index;
-            CRGB rgbend( u.r, u.g, u.b);
+            CRGBW rgbend( u.r, u.g, u.b, u.w);
             fill_gradient_RGB( &(entries[0]), indexstart, rgbstart, indexend, rgbend);
             indexstart = indexend;
             rgbstart = rgbend;
         }
         return *this;
     }
-    CRGBPalette256& loadDynamicGradientPalette( TDynamicRGBGradientPalette_bytes gpal )
+    CRGBWPalette256& loadDynamicGradientPalette( TDynamicRGBGradientPalette_bytes gpal )
     {
         TRGBGradientPaletteEntryUnion* ent = (TRGBGradientPaletteEntryUnion*)(gpal);
         TRGBGradientPaletteEntryUnion u;
         u = *ent;
-        CRGB rgbstart( u.r, u.g, u.b);
+        CRGBW rgbstart( u.r, u.g, u.b, u.w);
 
         int indexstart = 0;
         while( indexstart < 255) {
             ent++;
             u = *ent;
             int indexend  = u.index;
-            CRGB rgbend( u.r, u.g, u.b);
+            CRGBW rgbend( u.r, u.g, u.b, u.w);
             fill_gradient_RGB( &(entries[0]), indexstart, rgbstart, indexend, rgbend);
             indexstart = indexend;
             rgbstart = rgbend;
@@ -1510,17 +1511,17 @@ public:
 
 typedef enum { NOBLEND=0, LINEARBLEND=1 } TBlendType;
 
-CRGB ColorFromPalette( const CRGBPalette16& pal,
+CRGBW ColorFromPalette( const CRGBWPalette16& pal,
                       uint8_t index,
                       uint8_t brightness=255,
                       TBlendType blendType=LINEARBLEND);
 
-CRGB ColorFromPalette( const TProgmemRGBPalette16& pal,
+CRGBW ColorFromPalette( const TProgmemRGBPalette16& pal,
                        uint8_t index,
                        uint8_t brightness=255,
                        TBlendType blendType=LINEARBLEND);
 
-CRGB ColorFromPalette( const CRGBPalette256& pal,
+CRGBW ColorFromPalette( const CRGBWPalette256& pal,
                        uint8_t index,
                        uint8_t brightness=255,
                        TBlendType blendType=NOBLEND );
@@ -1535,12 +1536,12 @@ CHSV ColorFromPalette( const CHSVPalette256& pal,
                        uint8_t brightness=255,
                        TBlendType blendType=NOBLEND );
 
-CRGB ColorFromPalette( const CRGBPalette32& pal,
+CRGBW ColorFromPalette( const CRGBWPalette32& pal,
                       uint8_t index,
                       uint8_t brightness=255,
                       TBlendType blendType=LINEARBLEND);
 
-CRGB ColorFromPalette( const TProgmemRGBPalette32& pal,
+CRGBW ColorFromPalette( const TProgmemRGBPalette32& pal,
                       uint8_t index,
                       uint8_t brightness=255,
                       TBlendType blendType=LINEARBLEND);
@@ -1553,7 +1554,7 @@ CHSV ColorFromPalette( const CHSVPalette32& pal,
 
 // Fill a range of LEDs with a sequece of entryies from a palette
 template <typename PALETTE>
-void fill_palette(CRGB* L, uint16_t N, uint8_t startIndex, uint8_t incIndex,
+void fill_palette(CRGBW* L, uint16_t N, uint8_t startIndex, uint8_t incIndex,
                   const PALETTE& pal, uint8_t brightness, TBlendType blendType)
 {
     uint8_t colorIndex = startIndex;
@@ -1563,26 +1564,26 @@ void fill_palette(CRGB* L, uint16_t N, uint8_t startIndex, uint8_t incIndex,
     }
 }
 
-template <typename PALETTE>
+  template <typename PALETTE>
 void map_data_into_colors_through_palette(
-	uint8_t *dataArray, uint16_t dataCount,
-	CRGB* targetColorArray,
-	const PALETTE& pal,
-	uint8_t brightness=255,
-	uint8_t opacity=255,
-	TBlendType blendType=LINEARBLEND)
+    uint8_t *dataArray, uint16_t dataCount,
+    CRGBW* targetColorArray,
+    const PALETTE& pal,
+    uint8_t brightness=255,
+    uint8_t opacity=255,
+    TBlendType blendType=LINEARBLEND)
 {
-	for( uint16_t i = 0; i < dataCount; i++) {
-		uint8_t d = dataArray[i];
-		CRGB rgb = ColorFromPalette( pal, d, brightness, blendType);
-		if( opacity == 255 ) {
-			targetColorArray[i] = rgb;
-		} else {
-			targetColorArray[i].nscale8( 256 - opacity);
-			rgb.nscale8_video( opacity);
-			targetColorArray[i] += rgb;
-		}
-	}
+  for( uint16_t i = 0; i < dataCount; i++) {
+    uint8_t d = dataArray[i];
+    CRGBW rgb = ColorFromPalette( pal, d, brightness, blendType);
+    if( opacity == 255 ) {
+      targetColorArray[i] = rgb;
+    } else {
+      targetColorArray[i].nscale8( 256 - opacity);
+      rgb.nscale8_video( opacity);
+      targetColorArray[i] += rgb;
+    }
+  }
 }
 
 // nblendPaletteTowardPalette:
@@ -1617,8 +1618,8 @@ void map_data_into_colors_through_palette(
 //               The default 'maximim number of changes' here is 12, meaning
 //               that only approximately a quarter of the palette entries
 //               will be changed per call.
-void nblendPaletteTowardPalette( CRGBPalette16& currentPalette,
-                                CRGBPalette16& targetPalette,
+void nblendPaletteTowardPalette( CRGBWPalette16& currentPalette,
+                                CRGBWPalette16& targetPalette,
                                 uint8_t maxChanges=24);
 
 
@@ -1649,9 +1650,9 @@ void nblendPaletteTowardPalette( CRGBPalette16& currentPalette,
 //  of SRAM when not currently in use.
 //
 //  To use one of these gradient palettes, simply assign it into a
-//  CRGBPalette16 or a CRGBPalette256, like this:
+//  CRGBWPalette16 or a CRGBWPalette256, like this:
 //
-//    CRGBPalette16 pal = black_to_red_to_white_p;
+//    CRGBWPalette16 pal = black_to_red_to_white_p;
 //
 //  When the assignment is made, the gradients are expanded out into
 //  either 16 or 256 palette entries, depending on the kind of palette
@@ -1678,7 +1679,7 @@ void nblendPaletteTowardPalette( CRGBPalette16& currentPalette,
 
 // Functions to apply gamma adjustments, either:
 // - a single gamma adjustment to a single scalar value,
-// - a single gamma adjustment to each channel of a CRGB color, or
+// - a single gamma adjustment to each channel of a CRGBW color, or
 // - different gamma adjustments for each channel of a CRFB color.
 //
 // Note that the gamma is specified as a traditional floating point value
@@ -1687,17 +1688,17 @@ void nblendPaletteTowardPalette( CRGBPalette16& currentPalette,
 // low on program storage space.  Nevertheless, if you need these
 // functions, here they are.
 //
-// Furthermore, bear in mind that CRGB leds have only eight bits
+// Furthermore, bear in mind that CRGBW leds have only eight bits
 // per channel of color resolution, and that very small, subtle shadings
 // may not be visible.
 uint8_t applyGamma_video( uint8_t brightness, float gamma);
-CRGB    applyGamma_video( const CRGB& orig, float gamma);
-CRGB    applyGamma_video( const CRGB& orig, float gammaR, float gammaG, float gammaB);
+CRGBW    applyGamma_video( const CRGBW& orig, float gamma);
+CRGBW    applyGamma_video( const CRGBW& orig, float gammaR, float gammaG, float gammaB);
 // The "n" versions below modify their arguments in-place.
-CRGB&  napplyGamma_video( CRGB& rgb, float gamma);
-CRGB&  napplyGamma_video( CRGB& rgb, float gammaR, float gammaG, float gammaB);
-void   napplyGamma_video( CRGB* rgbarray, uint16_t count, float gamma);
-void   napplyGamma_video( CRGB* rgbarray, uint16_t count, float gammaR, float gammaG, float gammaB);
+CRGBW&  napplyGamma_video( CRGBW& rgb, float gamma);
+CRGBW&  napplyGamma_video( CRGBW& rgb, float gammaR, float gammaG, float gammaB);
+void   napplyGamma_video( CRGBW* rgbarray, uint16_t count, float gamma);
+void   napplyGamma_video( CRGBW* rgbarray, uint16_t count, float gammaR, float gammaG, float gammaB);
 
 
 FASTLED_NAMESPACE_END

@@ -126,7 +126,7 @@ void init()
     sbi(TCCR0A, CS01);
     sbi(TCCR0A, CS00);
 #else
-#error Timer 0 prescale factor 64 not set correctly
+  #error Timer 0 prescale factor 64 not set correctly
 #endif
 
     // enable timer 0 overflow interrupt
@@ -135,7 +135,7 @@ void init()
 #elif defined(TIMSK0) && defined(TOIE0)
     sbi(TIMSK0, TOIE0);
 #else
-#error	Timer 0 overflow interrupt not set correctly
+  #error	Timer 0 overflow interrupt not set correctly
 #endif
 
     // timers 1 and 2 are used for phase-correct hardware pwm
@@ -161,7 +161,7 @@ void init()
 #if defined(TCCR1A) && defined(WGM10)
     sbi(TCCR1A, WGM10);
 #elif defined(TCCR1)
-#warning this needs to be finished
+  #warning this needs to be finished
 #endif
 
   // set timer 2 prescale factor to 64
@@ -170,7 +170,7 @@ void init()
 #elif defined(TCCR2B) && defined(CS22)
     sbi(TCCR2B, CS22);
 #else
-#warning Timer 2 not finished (may not be present on this CPU)
+  #warning Timer 2 not finished (may not be present on this CPU)
 #endif
 
   // configure timer 2 for phase correct pwm (8-bit)
@@ -179,7 +179,7 @@ void init()
 #elif defined(TCCR2A) && defined(WGM20)
     sbi(TCCR2A, WGM20);
 #else
-#warning Timer 2 not finished (may not be present on this CPU)
+  #warning Timer 2 not finished (may not be present on this CPU)
 #endif
 
 #if defined(TCCR3B) && defined(CS31) && defined(WGM30)

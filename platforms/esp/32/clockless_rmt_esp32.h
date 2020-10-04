@@ -122,7 +122,6 @@ __attribute__ ((always_inline)) inline static uint32_t __clock_cycles() {
 }
 
 #define FASTLED_HAS_CLOCKLESS 1
-#define NUM_COLOR_CHANNELS 3
 
 // -- Set to true to print debugging information about timing
 //    Useful for finding out if timing is being messed up by other things
@@ -134,7 +133,7 @@ __attribute__ ((always_inline)) inline static uint32_t __clock_cycles() {
 // -- Configuration constants
 #define DIVIDER             2 /* 4, 8 still seem to work, but timings become marginal */
 #define MAX_PULSES         64 /* A channel has a 64 "pulse" buffer */
-#define PULSES_PER_FILL    24 /* One pixel's worth of pulses */
+//#define PULSES_PER_FILL    24 /* One pixel's worth of pulses */
 
 // -- Convert ESP32 CPU cycles to RMT device cycles, taking into account the divider
 #define F_CPU_RMT                   (  80000000L)
@@ -183,7 +182,7 @@ static xSemaphoreHandle gTX_sem = NULL;
 
 static bool gInitialized = false;
 
-template <int DATA_PIN, int T1, int T2, int T3, EOrder RGB_ORDER = RGB, int XTRA0 = 0, bool FLIP = false, int WAIT_TIME = 5>
+template <int DATA_PIN, int N_BYTES, int T1, int T2, int T3, EOrder RGB_ORDER = RGB, int XTRA0 = 0, bool FLIP = false, int WAIT_TIME = 5>
 class ClocklessController : public CPixelLEDController<RGB_ORDER>
 {
     // -- RMT has 8 channels, numbered 0 to 7
@@ -201,7 +200,6 @@ class ClocklessController : public CPixelLEDController<RGB_ORDER>
 
     // -- Save the pixel controller
     PixelController<RGB_ORDER> * mPixels;
-    int            mCurColor;
     uint16_t       mCurPulse;
     volatile uint32_t * mRMT_mem_ptr;
 
@@ -272,7 +270,8 @@ protected:
                 // -- Set up the RMT to send 1 pixel of the pulse buffer and then
                 //    generate an interrupt. When we get this interrupt we
                 //    fill the other part in preparation (kind of like double-buffering)
-                rmt_set_tx_thr_intr_en(rmt_channel_t(i), true, PULSES_PER_FILL);
+                //rmt_set_tx_thr_intr_en(rmt_channel_t(i), true, PULSES_PER_FILL);
+                rmt_set_tx_thr_intr_en(rmt_channel_t(i), true, N_BYTES * 8);
             }
         }
 
@@ -326,7 +325,7 @@ protected:
         gNumStarted++;
 
         // -- The last call to showPixels is the one responsible for doing
-        //    all of the actual worl
+        //    all of the actual work
         if (gNumStarted == gNumControllers) {
             gNext = 0;
 
@@ -449,7 +448,6 @@ protected:
             //    the pixel data.
             mRMT_mem_ptr = & (RMTMEM.chan[mRMT_channel].data32[0].val);
             mCurPulse = 0;
-            mCurColor = 0;
 
             // -- Store 2 pixels worth of data (two "buffers" full)
             fillNext();
@@ -538,7 +536,7 @@ protected:
     void IRAM_ATTR fillNext()
     {
         if (mPixels->has(1)) {
-            uint32_t t1 = __clock_cycles();
+            //uint32_t t1 = __clock_cycles();
             
             uint32_t one_val = mOne.val;
             uint32_t zero_val = mZero.val;
@@ -547,11 +545,15 @@ protected:
             uint8_t byte0 = mPixels->loadAndScale0();
             uint8_t byte1 = mPixels->loadAndScale1();
             uint8_t byte2 = mPixels->loadAndScale2();
+            uint8_t byte3 = 0;
+            if (N_BYTES == 4) { //RGBW
+                byte3 = mPixels->loadAndScale3();
+            }
             mPixels->advanceData();
             mPixels->stepDithering();
 
             // -- Fill 24 slots in the RMT memory
-            register uint32_t pixel = byte0 << 24 | byte1 << 16 | byte2 << 8;
+            register uint32_t pixel = byte0 << 24 | byte1 << 16 | byte2 << 8 | byte3;
 
             // -- Use locals for speed
             volatile register uint32_t * pItem =  mRMT_mem_ptr;
@@ -559,7 +561,7 @@ protected:
             
             // Shift bits out, MSB first, setting RMTMEM.chan[n].data32[x] to the 
             // rmt_item32_t value corresponding to the buffered bit value
-            for (register uint32_t j = 0; j < 24; j++) {
+            for (register uint32_t j = 0; j < N_BYTES * 8; j++) {
                 uint32_t val = (pixel & 0x80000000L) ? one_val : zero_val;
                 *pItem++ = val;
                 // Replaces: RMTMEM.chan[mRMT_channel].data32[mCurPulse].val = val;
@@ -584,105 +586,6 @@ protected:
         }   
     }
 
-    // NO LONGER USED
-    uint8_t IRAM_ATTR getNextByte() __attribute__ ((always_inline))
-    {
-        uint8_t byte;
-
-        // -- Cycle through the color channels
-        switch (mCurColor) {
-        case 0: 
-            byte = mPixels->loadAndScale0();
-            break;
-        case 1: 
-            byte = mPixels->loadAndScale1();
-            break;
-        case 2: 
-            byte = mPixels->loadAndScale2();
-            mPixels->advanceData();
-            mPixels->stepDithering();
-            break;
-        default:
-            // -- This is bad!
-            byte = 0;
-        }
-
-        mCurColor++;
-        if (mCurColor == NUM_COLOR_CHANNELS) mCurColor = 0;
-
-        return byte;
-    }
-
-
-    // NO LONGER USED
-    // -- Fill the RMT buffer
-    //    This function fills the next 32 slots in the RMT write
-    //    buffer with pixel data. It also handles the case where the
-    //    pixel data is exhausted, so we need to fill the RMT buffer
-    //    with zeros to signal that it's done.
-    virtual void IRAM_ATTR fillHalfRMTBuffer()
-    {
-        uint32_t one_val = mOne.val;
-        uint32_t zero_val = mZero.val;
-
-        // -- Convert (up to) 32 bits of the raw pixel data into
-        //    into RMT pulses that encode the zeros and ones.
-        int pulses = 0;
-        register uint32_t byteval;
-        while (pulses < 32 && mPixels->has(1)) {
-            // -- Get one byte
-            // -- Cycle through the color channels
-            switch (mCurColor) {
-            case 0: 
-                byteval = mPixels->loadAndScale0();
-                break;
-            case 1: 
-                byteval = mPixels->loadAndScale1();
-                break;
-            case 2: 
-                byteval = mPixels->loadAndScale2();
-                mPixels->advanceData();
-                mPixels->stepDithering();
-                break;
-            default:
-                // -- This is bad!
-                byteval = 0;
-            }
-
-            mCurColor++;
-            if (mCurColor == NUM_COLOR_CHANNELS) mCurColor = 0;
-        
-            // byteval = getNextByte();
-            byteval <<= 24;
-            // Shift bits out, MSB first, setting RMTMEM.chan[n].data32[x] to the 
-            // rmt_item32_t value corresponding to the buffered bit value
-            for (register uint32_t j = 0; j < 8; j++) {
-                uint32_t val = (byteval & 0x80000000L) ? one_val : zero_val;
-                * mRMT_mem_ptr++ = val;
-                // Replaces: RMTMEM.chan[mRMT_channel].data32[mCurPulse].val = val;
-                byteval <<= 1;
-                mCurPulse++;
-            }
-            pulses += 8;
-        }
-
-        // -- When we reach the end of the pixel data, fill the rest of the
-        //    RMT buffer with 0's, which signals to the device that we're done.
-        if ( ! mPixels->has(1) ) {
-            while (pulses < 32) {
-                * mRMT_mem_ptr++ = 0;
-                // Replaces: RMTMEM.chan[mRMT_channel].data32[mCurPulse].val = 0;
-                mCurPulse++;
-                pulses++;
-            }
-        }
-        
-        // -- When we have filled the back half the buffer, reset the position to the first half
-        if (mCurPulse == MAX_PULSES) {
-            mRMT_mem_ptr = & (RMTMEM.chan[mRMT_channel].data32[0].val);
-            mCurPulse = 0;
-        }
-    }
 };
 
 FASTLED_NAMESPACE_END
