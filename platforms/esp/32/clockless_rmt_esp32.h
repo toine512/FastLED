@@ -373,7 +373,7 @@ protected:
     {
         // -- Compute the pulse values for the whole strip at once.
         //    Requires a large buffer
-        mBufferSize = pixels.size() * 3 * 8;
+        mBufferSize = pixels.size() * N_BYTES * 8;
 
         if (mBuffer == NULL) {
             mBuffer = (rmt_item32_t *) calloc( mBufferSize, sizeof(rmt_item32_t));
@@ -391,6 +391,11 @@ protected:
             convertByte(byteval);
             byteval = pixels.loadAndScale2();
             convertByte(byteval);
+            if (N_BYTES == 4) { //RGBW
+                byteval = pixels.loadAndScale3();
+                convertByte(byteval);
+            }
+
             pixels.advanceData();
             pixels.stepDithering();
         }
