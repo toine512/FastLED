@@ -376,7 +376,7 @@ protected:
         mBufferSize = pixels.size() * N_BYTES * 8;
 
         if (mBuffer == NULL) {
-            mBuffer = (rmt_item32_t *) calloc( mBufferSize, sizeof(rmt_item32_t));
+            mBuffer = (rmt_item32_t *) calloc(mBufferSize, sizeof(rmt_item32_t));
         }
 
         // -- Cycle through the R,G, and B values in the right order,
@@ -541,8 +541,6 @@ protected:
     void IRAM_ATTR fillNext()
     {
         if (mPixels->has(1)) {
-            //uint32_t t1 = __clock_cycles();
-            
             uint32_t one_val = mOne.val;
             uint32_t zero_val = mZero.val;
 
@@ -557,7 +555,7 @@ protected:
             mPixels->advanceData();
             mPixels->stepDithering();
 
-            // -- Fill 24 slots in the RMT memory
+            // -- Fill 32 slots in the RMT memory (last 8 slots are zero if no W component)
             register uint32_t pixel = byte0 << 24 | byte1 << 16 | byte2 << 8 | byte3;
 
             // -- Use locals for speed
