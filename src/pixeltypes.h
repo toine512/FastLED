@@ -9,7 +9,7 @@
 
 FASTLED_NAMESPACE_BEGIN
 
-struct CRGB;
+struct CRGBW;
 struct CHSV;
 
 ///@defgroup Pixeltypes CHSV and CRGB type definitions
@@ -17,9 +17,6 @@ struct CHSV;
 
 /// Forward declaration of hsv2rgb_rainbow here,
 /// to avoid circular dependencies.
-struct CRGBW;
-struct CHSV;
-
 extern void hsv2rgb_rainbow( const CHSV& hsv, CRGBW& rgbw);
 
 /// Representation of an HSV pixel (hue, saturation, value (aka brightness)).
@@ -495,7 +492,7 @@ struct CRGBW {
             red =   (red   * factor) / 256;
             green = (green * factor) / 256;
             blue =  (blue  * factor) / 256;
-            white =  (white  * factor) / 256;
+            white = (white  * factor) / 256;
         }
     }
 
@@ -566,14 +563,14 @@ struct CRGBW {
             // going 'up'
             if( (b > 0) && (b < 255)) {
                 if( r == g && g == b) {
-                    r++;
-                    g++;
+                    ++r;
+                    ++g;
                 }
-                b++;
+                ++b;
             } else if( (r > 0) && (r < 255)) {
-                r++;
+                ++r;
             } else if( (g > 0) && (g < 255)) {
-                g++;
+                ++g;
             } else {
                 if( r == g && g == b) {
                     r ^= 0x01;
@@ -585,14 +582,14 @@ struct CRGBW {
             // going 'down'
             if( b > 1) {
                 if( r == g && g == b) {
-                    r--;
-                    g--;
+                    --r;
+                    --g;
                 }
-                b--;
+                --b;
             } else if( g > 1) {
-                g--;
+                --g;
             } else if( r > 1) {
-                r--;
+                --r;
             } else {
                 if( r == g && g == b) {
                     r ^= 0x01;

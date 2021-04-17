@@ -1048,17 +1048,17 @@ LIB8STATIC uint16_t div1024_32_16( uint32_t in32)
     uint16_t out16;
 #if defined(__AVR__)
     asm volatile (
-                  "  lsr %D[in]  \n\t"
-                  "  ror %C[in]  \n\t"
-                  "  ror %B[in]  \n\t"
-                  "  lsr %D[in]  \n\t"
-                  "  ror %C[in]  \n\t"
-                  "  ror %B[in]  \n\t"
-                  "  mov %B[out],%C[in] \n\t"
-                  "  mov %A[out],%B[in] \n\t"
-                  : [in] "+r" (in32),
-                  [out] "=r" (out16)
-                  );
+        "  lsr %D[in]  \n\t"
+        "  ror %C[in]  \n\t"
+        "  ror %B[in]  \n\t"
+        "  lsr %D[in]  \n\t"
+        "  ror %C[in]  \n\t"
+        "  ror %B[in]  \n\t"
+        "  mov %B[out],%C[in] \n\t"
+        "  mov %A[out],%B[in] \n\t"
+        : [in] "+r" (in32),
+        [out] "=r" (out16)
+    );
 #else
     out16 = (in32 >> 10) & 0xFFFF;
 #endif

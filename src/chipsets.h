@@ -454,7 +454,7 @@ protected:
 
 // We want to force all avr's to use the Trinket controller when running at 8Mhz, because even the 328's at 8Mhz
 // need the more tightly defined timeframes.
-#if (CLOCKLESS_FREQUENCY == 8000000 || CLOCKLESS_FREQUENCY == 16000000 || CLOCKLESS_FREQUENCY == 24000000) //  || CLOCKLESS_FREQUENCY == 48000000 || CLOCKLESS_FREQUENCY == 96000000) // 125ns/clock
+#if defined(__LGT8F__) || (CLOCKLESS_FREQUENCY == 8000000 || CLOCKLESS_FREQUENCY == 16000000 || CLOCKLESS_FREQUENCY == 24000000) //  || CLOCKLESS_FREQUENCY == 48000000 || CLOCKLESS_FREQUENCY == 96000000) // 125ns/clock
 #define FMUL (CLOCKLESS_FREQUENCY/8000000)
 
 // GE8822
@@ -491,8 +491,8 @@ class SM16703Controller : public ClocklessController<DATA_PIN, 3, 3 * FMUL, 4 * 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
 class SK6812Controller : public ClocklessController<DATA_PIN, 3, 3 * FMUL, 3 * FMUL, 4 * FMUL, RGB_ORDER> {};
 
-template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
-class SK6812WController: public ClocklessController<DATA_PIN, 4, 3 * FMUL, 3 * FMUL, 4 * FMUL, RGB_ORDER> {};
+template <uint8_t DATA_PIN, EOrder RGB_ORDER = GRB>
+class SK6812WController : public ClocklessController<DATA_PIN, 4, 3 * FMUL, 3 * FMUL, 4 * FMUL, RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
 class UCS1903Controller400Khz : public ClocklessController<DATA_PIN, 3, 4 * FMUL, 12 * FMUL, 4 * FMUL, RGB_ORDER> {};
@@ -607,7 +607,7 @@ class SK6822Controller : public ClocklessController<DATA_PIN, 3, C_NS(375), C_NS
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
 class SK6812Controller : public ClocklessController<DATA_PIN, 3, C_NS(300), C_NS(300), C_NS(600), RGB_ORDER> {};
 
-template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>
+template <uint8_t DATA_PIN, EOrder RGB_ORDER = GRB>
 class SK6812WController : public ClocklessController<DATA_PIN, 4, C_NS(300), C_NS(300), C_NS(600), RGB_ORDER> {};
 
 template <uint8_t DATA_PIN, EOrder RGB_ORDER = RGB>

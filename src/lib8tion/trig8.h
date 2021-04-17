@@ -16,9 +16,6 @@
 
 #if defined(__AVR__)
 #define sin16 sin16_avr
-#else
-#define sin16 sin16_C
-#endif
 
 /// Fast 16-bit approximation of sin(x). This approximation never varies more than
 /// 0.69% from the floating point value you'd get by doing
@@ -78,6 +75,9 @@ LIB8STATIC int16_t sin16_avr( uint16_t theta )
     return y;
 }
 
+#else 
+#define sin16 sin16_C
+
 /// Fast 16-bit approximation of sin(x). This approximation never varies more than
 /// 0.69% from the floating point value you'd get by doing
 ///
@@ -109,6 +109,7 @@ LIB8STATIC int16_t sin16_C( uint16_t theta )
     return y;
 }
 
+#endif
 
 /// Fast 16-bit approximation of cos(x). This approximation never varies more than
 /// 0.69% from the floating point value you'd get by doing
@@ -139,15 +140,11 @@ LIB8STATIC int16_t cos16( uint16_t theta)
 //
 //        On Arduino/AVR, this approximation is more than
 //        20X faster than floating point sin(x) and cos(x)
+//
+const uint8_t b_m16_interleave[] = { 0, 49, 49, 41, 90, 27, 117, 10 };
 
 #if defined(__AVR__) && !defined(LIB8_ATTINY)
 #define sin8 sin8_avr
-#else
-#define sin8 sin8_C
-#endif
-
-
-const uint8_t b_m16_interleave[] = { 0, 49, 49, 41, 90, 27, 117, 10 };
 
 /// Fast 8-bit approximation of sin(x). This approximation never varies more than
 /// 2% from the floating point value you'd get by doing
@@ -169,7 +166,7 @@ LIB8STATIC uint8_t  sin8_avr( uint8_t theta)
     offset &= 0x3F; // 0..63
 
     uint8_t secoffset  = offset & 0x0F; // 0..15
-    if( theta & 0x40) secoffset++;
+    if( theta & 0x40) ++secoffset;
 
     uint8_t m16; uint8_t b;
 
@@ -179,7 +176,7 @@ LIB8STATIC uint8_t  sin8_avr( uint8_t theta)
     const uint8_t* p = b_m16_interleave;
     p += s2;
     b   = *p;
-    p++;
+    ++p;
     m16 = *p;
 
     uint8_t mx;
@@ -206,6 +203,8 @@ LIB8STATIC uint8_t  sin8_avr( uint8_t theta)
     return y;
 }
 
+#else
+#define sin8 sin8_C
 
 /// Fast 8-bit approximation of sin(x). This approximation never varies more than
 /// 2% from the floating point value you'd get by doing
@@ -223,14 +222,14 @@ LIB8STATIC uint8_t sin8_C( uint8_t theta)
     offset &= 0x3F; // 0..63
 
     uint8_t secoffset  = offset & 0x0F; // 0..15
-    if( theta & 0x40) secoffset++;
+    if( theta & 0x40) ++secoffset;
 
     uint8_t section = offset >> 4; // 0..3
     uint8_t s2 = section * 2;
     const uint8_t* p = b_m16_interleave;
     p += s2;
     uint8_t b   =  *p;
-    p++;
+    ++p;
     uint8_t m16 =  *p;
 
     uint8_t mx = (m16 * secoffset) >> 4;
@@ -242,6 +241,8 @@ LIB8STATIC uint8_t sin8_C( uint8_t theta)
 
     return y;
 }
+
+#endif
 
 /// Fast 8-bit approximation of cos(x). This approximation never varies more than
 /// 2% from the floating point value you'd get by doing

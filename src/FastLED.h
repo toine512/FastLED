@@ -8,12 +8,12 @@
 #define FASTLED_HAS_PRAGMA_MESSAGE
 #endif
 
-#define FASTLED_VERSION 3003002
+#define FASTLED_VERSION 3004000
 #ifndef FASTLED_INTERNAL
 #  ifdef FASTLED_HAS_PRAGMA_MESSAGE
-#    pragma message "FastLED version 3.003.003"
+#    pragma message "FastLED version 3.004.000"
 #  else
-#    warning FastLED version 3.003.003  (Not really a warning, just telling you here.)
+#    warning FastLED version 3.004.000  (Not really a warning, just telling you here.)
 #  endif
 #endif
 
@@ -91,37 +91,37 @@ template<uint8_t DATA_PIN, EOrder RGB_ORDER> class PIXIE : public PixieControlle
 #endif
 
 #ifdef FASTLED_HAS_CLOCKLESS
-template<uint8_t DATA_PIN> class NEOPIXEL:                       public WS2812Controller800Khz<DATA_PIN, GRB> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class SM16703 :     public SM16703Controller<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1829:       public TM1829Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1812:       public TM1809Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1809:       public TM1809Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1804:       public TM1809Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1803:       public TM1803Controller400Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class UCS1903:      public UCS1903Controller400Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class UCS1903B:     public UCS1903BController800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class UCS1904:      public UCS1904Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class UCS2903:      public UCS2903Controller<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2812:       public WS2812Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2852:       public WS2812Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2812B:      public WS2812Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class GS1903 :      public WS2812Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class SK6812:       public SK6812Controller<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class SK6812W:      public SK6812WController<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class SK6822:       public SK6822Controller<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class APA106:       public SK6822Controller<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class PL9823:       public PL9823Controller<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2811:       public WS2811Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2813:       public WS2813Controller<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class APA104:       public WS2811Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2811_400:   public WS2811Controller400Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class GE8822 :      public GE8822Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class GW6205:       public GW6205Controller800Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class GW6205_400:   public GW6205Controller400Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class LPD1886:      public LPD1886Controller1250Khz<DATA_PIN, RGB_ORDER> {};
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class LPD1886_8BIT: public LPD1886Controller1250Khz_8bit<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN> class NEOPIXEL : public WS2812Controller800Khz<DATA_PIN, GRB> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class SM16703 : public SM16703Controller<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1829 : public TM1829Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1812 : public TM1809Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1809 : public TM1809Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1804 : public TM1809Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class TM1803 : public TM1803Controller400Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class UCS1903 : public UCS1903Controller400Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class UCS1903B : public UCS1903BController800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class UCS1904 : public UCS1904Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class UCS2903 : public UCS2903Controller<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2812 : public WS2812Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2852 : public WS2812Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2812B : public WS2812Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class GS1903 : public WS2812Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class SK6812 : public SK6812Controller<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class SK6812W : public SK6812WController<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class SK6822 : public SK6822Controller<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class APA106 : public SK6822Controller<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class PL9823 : public PL9823Controller<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2811 : public WS2811Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2813 : public WS2813Controller<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class APA104 : public WS2811Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class WS2811_400 : public WS2811Controller400Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class GE8822 : public GE8822Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class GW6205 : public GW6205Controller800Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class GW6205_400 : public GW6205Controller400Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class LPD1886 : public LPD1886Controller1250Khz<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class LPD1886_8BIT : public LPD1886Controller1250Khz_8bit<DATA_PIN, RGB_ORDER> {};
 #ifdef DmxSimple_h
-template<uint8_t DATA_PIN, EOrder RGB_ORDER> class DMXSIMPLE:    public DMXSimpleController<DATA_PIN, RGB_ORDER> {};
+template<uint8_t DATA_PIN, EOrder RGB_ORDER> class DMXSIMPLE : public DMXSimpleController<DATA_PIN, RGB_ORDER> {};
 #endif
 #ifdef DmxSerial_h
 template<EOrder RGB_ORDER> class DMXSERIAL : public DMXSerialController<RGB_ORDER> {};

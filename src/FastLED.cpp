@@ -31,8 +31,8 @@ CFastLED::CFastLED() {
 }
 
 CLEDController &CFastLED::addLeds(CLEDController *pLed,
-		struct CRGBW *data,
-		int nLedsOrOffset, int nLedsIfOffset) {
+								  struct CRGBW *data,
+								  int nLedsOrOffset, int nLedsIfOffset) {
 	int nOffset = (nLedsIfOffset > 0) ? nLedsOrOffset : 0;
 	int nLeds = (nLedsIfOffset > 0) ? nLedsIfOffset : nLedsOrOffset;
 
@@ -64,13 +64,13 @@ void CFastLED::show(uint8_t scale) {
 }
 
 int CFastLED::count() {
-	int x = 0;
+    int x = 0;
 	CLEDController *pCur = CLEDController::head();
 	while( pCur) {
-		x++;
+        ++x;
 		pCur = pCur->next();
 	}
-	return x;
+    return x;
 }
 
 CLEDController & CFastLED::operator[](int x) {
@@ -109,7 +109,7 @@ void CFastLED::clear(bool writeData) {
 	if(writeData) {
 		showColor(CRGBW(0,0,0,0), 0);
 	}
-	clearData();
+    clearData();
 }
 
 void CFastLED::clearData() {
@@ -122,7 +122,7 @@ void CFastLED::clearData() {
 
 void CFastLED::delay(unsigned long ms) {
 	unsigned long start = millis();
-	do {
+        do {
 #ifndef FASTLED_ACCURATE_CLOCK
 		// make sure to allow at least one ms to pass to ensure the clock moves
 		// forward

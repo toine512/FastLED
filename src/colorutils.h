@@ -168,7 +168,7 @@ void fill_gradient( T* targetArray,
     accum88 hue88 = startcolor.hue << 8;
     accum88 sat88 = startcolor.sat << 8;
     accum88 val88 = startcolor.val << 8;
-    for( uint16_t i = startpos; i <= endpos; i++) {
+    for( uint16_t i = startpos; i <= endpos; ++i) {
         targetArray[i] = CHSV( hue88 >> 8, sat88 >> 8, val88 >> 8);
         hue88 += huedelta87;
         sat88 += satdelta87;
@@ -463,7 +463,7 @@ public:
 
     CHSVPalette16( const TProgmemHSVPalette16& rhs)
     {
-        for( uint8_t i = 0; i < 16; i++) {
+        for( uint8_t i = 0; i < 16; ++i) {
             CRGBW xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
             entries[i].hue = xyz.red;
             entries[i].sat = xyz.green;
@@ -472,7 +472,7 @@ public:
     }
     CHSVPalette16& operator=( const TProgmemHSVPalette16& rhs)
     {
-        for( uint8_t i = 0; i < 16; i++) {
+        for( uint8_t i = 0; i < 16; ++i) {
             CRGBW xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
             entries[i].hue = xyz.red;
             entries[i].sat = xyz.green;
@@ -509,10 +509,10 @@ public:
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
         const uint8_t* q = (const uint8_t*)(&(rhs.entries[0]));
         if( p == q) return true;
-        for( uint8_t i = 0; i < (sizeof( entries)); i++) {
+        for( uint8_t i = 0; i < (sizeof( entries)); ++i) {
             if( *p != *q) return false;
-            p++;
-            q++;
+            ++p;
+            ++q;
         }
         return true;
     }
@@ -614,10 +614,10 @@ public:
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
         const uint8_t* q = (const uint8_t*)(&(rhs.entries[0]));
         if( p == q) return true;
-        for( uint16_t i = 0; i < (sizeof( entries)); i++) {
+        for( uint16_t i = 0; i < (sizeof( entries)); ++i) {
             if( *p != *q) return false;
-            p++;
-            q++;
+            ++p;
+            ++q;
         }
         return true;
     }
@@ -680,26 +680,26 @@ public:
 
     CRGBWPalette16( const CHSVPalette16& rhs)
     {
-        for( uint8_t i = 0; i < 16; i++) {
+        for( uint8_t i = 0; i < 16; ++i) {
     		entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
         }
     }
     CRGBWPalette16( const CHSV rhs[16])
     {
-        for( uint8_t i = 0; i < 16; i++) {
+        for( uint8_t i = 0; i < 16; ++i) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
         }
     }
     CRGBWPalette16& operator=( const CHSVPalette16& rhs)
     {
-        for( uint8_t i = 0; i < 16; i++) {
+        for( uint8_t i = 0; i < 16; ++i) {
     		entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
         }
         return *this;
     }
     CRGBWPalette16& operator=( const CHSV rhs[16])
     {
-        for( uint8_t i = 0; i < 16; i++) {
+        for( uint8_t i = 0; i < 16; ++i) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
         }
         return *this;
@@ -707,13 +707,13 @@ public:
 
     CRGBWPalette16( const TProgmemRGBPalette16& rhs)
     {
-        for( uint8_t i = 0; i < 16; i++) {
+        for( uint8_t i = 0; i < 16; ++i) {
             entries[i] =  FL_PGM_READ_DWORD_NEAR( rhs + i);
         }
     }
     CRGBWPalette16& operator=( const TProgmemRGBPalette16& rhs)
     {
-        for( uint8_t i = 0; i < 16; i++) {
+        for( uint8_t i = 0; i < 16; ++i) {
             entries[i] =  FL_PGM_READ_DWORD_NEAR( rhs + i);
         }
         return *this;
@@ -724,10 +724,10 @@ public:
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
         const uint8_t* q = (const uint8_t*)(&(rhs.entries[0]));
         if( p == q) return true;
-        for( uint8_t i = 0; i < (sizeof( entries)); i++) {
+        for( uint8_t i = 0; i < (sizeof( entries)); ++i) {
             if( *p != *q) return false;
-            p++;
-            q++;
+            ++p;
+            ++q;
         }
         return true;
     }
@@ -829,7 +829,7 @@ public:
         uint16_t count = 0;
         do {
             u.dword = FL_PGM_READ_DWORD_NEAR(progent + count);
-            count++;;
+            ++count;
         } while ( u.index != 255);
 
         int8_t lastSlotUsed = -1;
@@ -841,7 +841,7 @@ public:
         uint8_t istart8 = 0;
         uint8_t iend8 = 0;
         while( indexstart < 255) {
-            progent++;
+            ++progent;
             u.dword = FL_PGM_READ_DWORD_NEAR( progent);
             int indexend  = u.index;
             CRGBW rgbend( u.r, u.g, u.b, u.w);
@@ -871,7 +871,7 @@ public:
         uint16_t count = 0;
         do {
             u = *(ent + count);
-            count++;;
+            ++count;
         } while ( u.index != 255);
 
         int8_t lastSlotUsed = -1;
@@ -884,7 +884,7 @@ public:
         uint8_t istart8 = 0;
         uint8_t iend8 = 0;
         while( indexstart < 255) {
-            ent++;
+            ++ent;
             u = *ent;
             int indexend  = u.index;
             CRGBW rgbend( u.r, u.g, u.b, u.w);
@@ -919,7 +919,7 @@ public:
                   const CHSV& c08,const CHSV& c09,const CHSV& c10,const CHSV& c11,
                   const CHSV& c12,const CHSV& c13,const CHSV& c14,const CHSV& c15 )
     {
-        for( uint8_t i = 0; i < 2; i++) {
+        for( uint8_t i = 0; i < 2; ++i) {
             entries[0+i]=c00; entries[2+i]=c01; entries[4+i]=c02; entries[6+i]=c03;
             entries[8+i]=c04; entries[10+i]=c05; entries[12+i]=c06; entries[14+i]=c07;
             entries[16+i]=c08; entries[18+i]=c09; entries[20+i]=c10; entries[22+i]=c11;
@@ -939,7 +939,7 @@ public:
     
     CHSVPalette32( const TProgmemHSVPalette32& rhs)
     {
-        for( uint8_t i = 0; i < 32; i++) {
+        for( uint8_t i = 0; i < 32; ++i) {
             CRGBW xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
             entries[i].hue = xyz.red;
             entries[i].sat = xyz.green;
@@ -948,7 +948,7 @@ public:
     }
     CHSVPalette32& operator=( const TProgmemHSVPalette32& rhs)
     {
-        for( uint8_t i = 0; i < 32; i++) {
+        for( uint8_t i = 0; i < 32; ++i) {
             CRGBW xyz   =  FL_PGM_READ_DWORD_NEAR( rhs + i);
             entries[i].hue = xyz.red;
             entries[i].sat = xyz.green;
@@ -985,10 +985,10 @@ public:
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
         const uint8_t* q = (const uint8_t*)(&(rhs.entries[0]));
         if( p == q) return true;
-        for( uint8_t i = 0; i < (sizeof( entries)); i++) {
+        for( uint8_t i = 0; i < (sizeof( entries)); ++i) {
             if( *p != *q) return false;
-            p++;
-            q++;
+            ++p;
+            ++q;
         }
         return true;
     }
@@ -1025,7 +1025,7 @@ public:
                   const CRGBW& c08,const CRGBW& c09,const CRGBW& c10,const CRGBW& c11,
                   const CRGBW& c12,const CRGBW& c13,const CRGBW& c14,const CRGBW& c15 )
     {
-        for( uint8_t i = 0; i < 2; i++) {
+        for( uint8_t i = 0; i < 2; ++i) {
             entries[0+i]=c00; entries[2+i]=c01; entries[4+i]=c02; entries[6+i]=c03;
             entries[8+i]=c04; entries[10+i]=c05; entries[12+i]=c06; entries[14+i]=c07;
             entries[16+i]=c08; entries[18+i]=c09; entries[20+i]=c10; entries[22+i]=c11;
@@ -1054,26 +1054,26 @@ public:
     
     CRGBWPalette32( const CHSVPalette32& rhs)
     {
-        for( uint8_t i = 0; i < 32; i++) {
+        for( uint8_t i = 0; i < 32; ++i) {
             entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
         }
     }
     CRGBWPalette32( const CHSV rhs[32])
     {
-        for( uint8_t i = 0; i < 32; i++) {
+        for( uint8_t i = 0; i < 32; ++i) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
         }
     }
     CRGBWPalette32& operator=( const CHSVPalette32& rhs)
     {
-        for( uint8_t i = 0; i < 32; i++) {
+        for( uint8_t i = 0; i < 32; ++i) {
             entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
         }
         return *this;
     }
     CRGBWPalette32& operator=( const CHSV rhs[32])
     {
-        for( uint8_t i = 0; i < 32; i++) {
+        for( uint8_t i = 0; i < 32; ++i) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
         }
         return *this;
@@ -1081,13 +1081,13 @@ public:
     
     CRGBWPalette32( const TProgmemRGBPalette32& rhs)
     {
-        for( uint8_t i = 0; i < 32; i++) {
+        for( uint8_t i = 0; i < 32; ++i) {
             entries[i] =  FL_PGM_READ_DWORD_NEAR( rhs + i);
         }
     }
     CRGBWPalette32& operator=( const TProgmemRGBPalette32& rhs)
     {
-        for( uint8_t i = 0; i < 32; i++) {
+        for( uint8_t i = 0; i < 32; ++i) {
             entries[i] =  FL_PGM_READ_DWORD_NEAR( rhs + i);
         }
         return *this;
@@ -1098,10 +1098,10 @@ public:
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
         const uint8_t* q = (const uint8_t*)(&(rhs.entries[0]));
         if( p == q) return true;
-        for( uint8_t i = 0; i < (sizeof( entries)); i++) {
+        for( uint8_t i = 0; i < (sizeof( entries)); ++i) {
             if( *p != *q) return false;
-            p++;
-            q++;
+            ++p;
+            ++q;
         }
         return true;
     }
@@ -1226,7 +1226,7 @@ public:
         uint16_t count = 0;
         do {
             u.dword = FL_PGM_READ_DWORD_NEAR(progent + count);
-            count++;;
+            ++count;
         } while ( u.index != 255);
         
         int8_t lastSlotUsed = -1;
@@ -1238,7 +1238,7 @@ public:
         uint8_t istart8 = 0;
         uint8_t iend8 = 0;
         while( indexstart < 255) {
-            progent++;
+            ++progent;
             u.dword = FL_PGM_READ_DWORD_NEAR( progent);
             int indexend  = u.index;
             CRGBW rgbend( u.r, u.g, u.b, u.w);
@@ -1268,7 +1268,7 @@ public:
         uint16_t count = 0;
         do {
             u = *(ent + count);
-            count++;;
+            ++count;
         } while ( u.index != 255);
         
         int8_t lastSlotUsed = -1;
@@ -1281,7 +1281,7 @@ public:
         uint8_t istart8 = 0;
         uint8_t iend8 = 0;
         while( indexstart < 255) {
-            ent++;
+            ++ent;
             u = *ent;
             int indexend  = u.index;
             CRGBW rgbend( u.r, u.g, u.b, u.w);
@@ -1342,26 +1342,26 @@ public:
 
     CRGBWPalette256( const CHSVPalette256& rhs)
     {
-    	for( int i = 0; i < 256; i++) {
+    	for( int i = 0; i < 256; ++i) {
 	    	entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
     	}
     }
     CRGBWPalette256( const CHSV rhs[256])
     {
-        for( int i = 0; i < 256; i++) {
+        for( int i = 0; i < 256; ++i) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
         }
     }
     CRGBWPalette256& operator=( const CHSVPalette256& rhs)
     {
-    	for( int i = 0; i < 256; i++) {
+    	for( int i = 0; i < 256; ++i) {
 	    	entries[i] = rhs.entries[i]; // implicit HSV-to-RGB conversion
     	}
         return *this;
     }
     CRGBWPalette256& operator=( const CHSV rhs[256])
     {
-        for( int i = 0; i < 256; i++) {
+        for( int i = 0; i < 256; ++i) {
             entries[i] = rhs[i]; // implicit HSV-to-RGB conversion
         }
         return *this;
@@ -1394,10 +1394,10 @@ public:
         const uint8_t* p = (const uint8_t*)(&(this->entries[0]));
         const uint8_t* q = (const uint8_t*)(&(rhs.entries[0]));
         if( p == q) return true;
-        for( uint16_t i = 0; i < (sizeof( entries)); i++) {
+        for( uint16_t i = 0; i < (sizeof( entries)); ++i) {
             if( *p != *q) return false;
-            p++;
-            q++;
+            ++p;
+            ++q;
         }
         return true;
     }
@@ -1476,7 +1476,7 @@ public:
 
         int indexstart = 0;
         while( indexstart < 255) {
-            progent++;
+            ++progent;
             u.dword = FL_PGM_READ_DWORD_NEAR( progent);
             int indexend  = u.index;
             CRGBW rgbend( u.r, u.g, u.b, u.w);
@@ -1495,7 +1495,7 @@ public:
 
         int indexstart = 0;
         while( indexstart < 255) {
-            ent++;
+            ++ent;
             u = *ent;
             int indexend  = u.index;
             CRGBW rgbend( u.r, u.g, u.b, u.w);
@@ -1558,32 +1558,32 @@ void fill_palette(CRGBW* L, uint16_t N, uint8_t startIndex, uint8_t incIndex,
                   const PALETTE& pal, uint8_t brightness, TBlendType blendType)
 {
     uint8_t colorIndex = startIndex;
-    for( uint16_t i = 0; i < N; i++) {
+    for( uint16_t i = 0; i < N; ++i) {
         L[i] = ColorFromPalette( pal, colorIndex, brightness, blendType);
         colorIndex += incIndex;
     }
 }
 
-  template <typename PALETTE>
+template <typename PALETTE>
 void map_data_into_colors_through_palette(
-    uint8_t *dataArray, uint16_t dataCount,
-    CRGBW* targetColorArray,
-    const PALETTE& pal,
-    uint8_t brightness=255,
-    uint8_t opacity=255,
-    TBlendType blendType=LINEARBLEND)
+	uint8_t *dataArray, uint16_t dataCount,
+	CRGBW* targetColorArray,
+	const PALETTE& pal,
+	uint8_t brightness=255,
+	uint8_t opacity=255,
+	TBlendType blendType=LINEARBLEND)
 {
-  for( uint16_t i = 0; i < dataCount; i++) {
-    uint8_t d = dataArray[i];
-    CRGBW rgb = ColorFromPalette( pal, d, brightness, blendType);
-    if( opacity == 255 ) {
-      targetColorArray[i] = rgb;
-    } else {
-      targetColorArray[i].nscale8( 256 - opacity);
-      rgb.nscale8_video( opacity);
-      targetColorArray[i] += rgb;
-    }
-  }
+	for( uint16_t i = 0; i < dataCount; ++i) {
+		uint8_t d = dataArray[i];
+		CRGBW rgb = ColorFromPalette( pal, d, brightness, blendType);
+		if( opacity == 255 ) {
+			targetColorArray[i] = rgb;
+		} else {
+			targetColorArray[i].nscale8( 256 - opacity);
+			rgb.nscale8_video( opacity);
+			targetColorArray[i] += rgb;
+		}
+	}
 }
 
 // nblendPaletteTowardPalette:
